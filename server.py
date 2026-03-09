@@ -39,123 +39,108 @@ def carregar_inteligencia():
 carregar_inteligencia()
 
 
-# 3. Inicialização do Banco de Usuários (SQLite)
+# 3. Inicialização do Banco de Usuários (SQLite) - AGORA COM E-MAIL
 def init_db():
-    # Salvando o banco na raiz para não perder o caminho
     db_path = os.path.join(BASE_DIR, 'enterprise_users.db')
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
+    # Adicionamos a coluna email
     c.execute('''CREATE TABLE IF NOT EXISTS users
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, role TEXT)''')
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                  username TEXT UNIQUE, 
+                  email TEXT UNIQUE,
+                  password TEXT, 
+                  role TEXT)''')
     c.execute("SELECT COUNT(*) FROM users")
     if c.fetchone()[0] == 0:
-        c.execute("INSERT INTO users (username, password, role) VALUES ('admin_rh', '123456', 'Administrador')")
+        c.execute("INSERT INTO users (username, email, password, role) VALUES ('admin_rh', 'admin@arqdigital.com.br', '123456', 'Administrador')")
     conn.commit()
     conn.close()
 
 init_db()
 
-
-# 4. Schemas do Pydantic
+# 4. Schemas do Pydantic (Atualizados)
 class UserLogin(BaseModel):
     username: str
     password: str
 
-
 class NewUser(BaseModel):
     username: str
+    email: str
     password: str
     role: str
 
-
-# 5. Rotas de Autenticação e Gestão de Acessos
+# 5. Rotas de Autenticação e Gestão de Acessos (O Novo CRUD)
 @app.post("/api/auth")
 def login(creds: UserLogin):
-    conn = sqlite3.connect('enterprise_users.db')
+    db_path = os.path.join(BASE_DIR, 'enterprise_users.db')
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    c.execute("SELECT role FROM users WHERE username=? AND password=?", (creds.username, creds.password))
+    c.execute("SELECT role FROM users WHERE (username=? OR email=?) AND password=?", (creds.username, creds.username, creds.password))
     user = c.fetchone()
     conn.close()
     if user:
         return {"token": "enterprise_secure_token", "name": creds.username, "role": user[0]}
     raise HTTPException(status_code=401, detail="Credenciais Inválidas.")
 
-
 @app.get("/api/users")
 def get_users():
-    conn = sqlite3.connect('enterprise_users.db')
+    db_path = os.path.join(BASE_DIR, 'enterprise_users.db')
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    c.execute("SELECT id, username, role FROM users")
-    users = [{"id": r[0], "username": r[1], "role": r[2]} for r in c.fetchall()]
+    c.execute("SELECT id, username, email, role FROM users")
+    users = [{"id": r[0], "username": r[1], "email": r[2], "role": r[3]} for r in c.fetchall()]
     conn.close()
     return users
-
 
 @app.post("/api/users")
 def create_user(user: NewUser):
     try:
-        conn = sqlite3.connect('enterprise_users.db')
+        db_path = os.path.join(BASE_DIR, 'enterprise_users.db')
+        conn = sqlite3.connect(db_path)
         c = conn.cursor()
-        c.execute("INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
-                  (user.username, user.password, user.role))
+        c.execute("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
+                  (user.username, user.email, user.password, user.role))
         conn.commit()
         conn.close()
         return {"msg": "Usuário criado com sucesso."}
     except sqlite3.IntegrityError:
-        raise HTTPException(status_code=400, detail="Usuário já existe.")
-
+        raise HTTPException(status_code=400, detail="Usuário ou E-mail já cadastrado.")
 
 @app.delete("/api/users/{user_id}")
 def delete_user(user_id: int):
-    conn = sqlite3.connect('enterprise_users.db')
+    db_path = os.path.join(BASE_DIR, 'enterprise_users.db')
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     c.execute("DELETE FROM users WHERE id=?", (user_id,))
     conn.commit()
     conn.close()
     return {"msg": "Usuário removido."}
 
-
 # 6. Rota S-Rank de Retreinamento de IA
 @app.post("/api/retrain")
 def retrain_model():
     try:
-        # 🛡️ JUTSU DE EXECUÇÃO BLINDADA:
-        # Convertemos o caminho para string absoluta e usamos o interpretador atual (sys.executable)
         caminho_main = os.path.join(BASE_DIR, "main.py")
-
-        # Executa o main.py e espera terminar
+        # Usando check=True e capturando a saída de erro detalhada
         result = subprocess.run(
             [sys.executable, caminho_main],
-            check=True,
             capture_output=True,
             text=True
         )
 
-        print(f"Log do Retreino: {result.stdout}")
+        if result.returncode != 0:
+            # Se o main.py deu erro, a gente joga o erro real do Python no log do Render
+            print(f"❌ ERRO NO MAIN.PY: {result.stderr}")
+            raise HTTPException(status_code=500, detail=f"Erro interno no script: {result.stderr}")
 
-        # Recarrega modelo e CSV novos na memória RAM do servidor
         carregar_inteligencia()
-
-        return {"msg": "Megazord retreinado com sucesso! A nova inteligência já está ativa."}
-    except subprocess.CalledProcessError as e:
-        # Se o erro for dentro do main.py, ele vai mostrar aqui o que foi
-        erro_detalhado = e.stderr if e.stderr else str(e)
-        raise HTTPException(status_code=500, detail=f"Erro na execução do main.py: {erro_detalhado}")
+        return {"msg": "Sucesso!"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro crítico no servidor: {str(e)}")
+        print(f"🔥 ERRO CRÍTICO NO SERVER: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
-# 7. Rotas do Dashboard e Inteligência de Dados
-@app.get("/")
-def read_root():
-    return FileResponse(os.path.join(BASE_DIR, "static", "index.html"))
-
-
-@app.get("/api/departments")
-def get_departments():
-    deps = df['departamento_nome_api'].dropna().unique().tolist()
-    return sorted(deps)
-
-
+# 7. Rota de Inteligência de Dados (Adeus Dependentes, Olá Tempo Médio)
 @app.get("/api/organizational_health")
 def get_health_data(departamento: str = "Todos"):
     df_filtered = df.copy()
@@ -181,7 +166,10 @@ def get_health_data(departamento: str = "Todos"):
     nomes_eixos = ['Meses de Casa', 'Salário', 'Idade', 'Dependentes', 'Turnover']
 
     evasao_perfil = demitidos.groupby('perfil_comportamental').size()
-    evasao_dep_familia = demitidos.groupby('qtd_dependentes').size()
+
+    # 🔥 A NOVA MATEMÁTICA: Média de Tempo de Casa (Ativos vs Evasões)
+    media_tempo_ativos = round(ativos['meses_de_casa'].mean(), 1) if not ativos.empty else 0
+    media_tempo_evasoes = round(demitidos['meses_de_casa'].mean(), 1) if not demitidos.empty else 0
 
     if not ativos.empty:
         ativos['is_perfil_Nao_Mapeado'] = ativos['perfil_comportamental'].apply(
@@ -207,6 +195,6 @@ def get_health_data(departamento: str = "Todos"):
         "demografia": {"idade_ativos": idade_ativos, "idade_demitidos": idade_demitidos},
         "correlacao": {"z": matriz_corr.values.tolist(), "eixos": nomes_eixos},
         "perfil": {"nomes": evasao_perfil.index.tolist(), "valores": evasao_perfil.values.tolist()},
-        "dependentes": {"qtd": evasao_dep_familia.index.tolist(), "fugas": evasao_dep_familia.values.tolist()},
+        "tempo_medio": {"ativos": media_tempo_ativos, "evasoes": media_tempo_evasoes}, # O NOVO GRÁFICO
         "target_list": target_list.to_dict(orient="records")
     }

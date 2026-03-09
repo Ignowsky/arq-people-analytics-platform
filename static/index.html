@@ -3,111 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Analytics | RH</title>
+    <title>Arq People Analytics - Dashboard S-Rank</title>
     <link rel="stylesheet" href="/static/style.css">
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
 </head>
 <body>
 
     <div id="login-overlay" class="login-overlay">
-        <div class="login-box module">
-            <h2>Enterprise Analytics</h2>
-            <p>Acesso Restrito Corporativo</p>
-            <input type="text" id="username" placeholder="Usuário Admin">
-            <input type="password" id="password" placeholder="Senha">
-            <button onclick="fazerLogin()">Autenticar</button>
-            <div id="login-error" style="color: #FF453A; margin-top: 15px; display: none;">Credenciais Inválidas.</div>
+        <div class="login-box glass-panel">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple-logo.png" alt="Logo" class="logo-login" style="filter: invert(0.2) sepia(1) saturate(3) hue-rotate(200deg); width: 50px; margin-bottom: 20px;">
+            <h2>Arq. P.A. Portal</h2>
+            <input type="text" id="username" placeholder="Usuário ou E-mail">
+            <input type="password" id="password" placeholder="Senha Forte">
+            <button onclick="fazerLogin()">Acessar Sistema</button>
+            <p id="login-error" style="color: #ff3b30; display: none; margin-top: 10px; font-size: 14px;">Acesso Negado.</p>
         </div>
     </div>
 
     <div id="main-dashboard" style="display: none;">
+
         <nav class="glass-nav">
-            <div class="logo">Enterprise <span>Analytics</span></div>
-            <div class="filters">
-                <select id="dep-filter" onchange="carregarDashboard()">
-                    <option value="Todos">Unidade de Negócio: Todas</option>
-                </select>
-                <button onclick="toggleAdminPanel()" id="btn-admin" style="display:none;" class="btn-primary">Gestão de Sistema</button>
+            <div class="nav-brand">
+                <strong>Arq</strong> Analytics
             </div>
-            <div class="user-profile" style="display: flex; align-items: center; gap: 15px;">
-                <span id="user-name-display" style="color: var(--text-secondary); font-size: 0.9rem;">Operador</span>
-                <button onclick="logout()" class="btn-danger">Sair</button>
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="mostrarAba('aba-geral', this)">Visão Geral</button>
+                <button class="tab-btn" onclick="mostrarAba('aba-demografia', this)">Demografia & Sobrevivência</button>
+                <button class="tab-btn" id="btn-admin-tab" onclick="mostrarAba('aba-admin', this)" style="display: none;">Acessos (Admin)</button>
+            </div>
+            <div class="nav-actions">
+                <select id="filtro-departamento" onchange="carregarDados()">
+                    <option value="Todos">Visão Global da Empresa</option>
+                </select>
+                <button onclick="sair()" class="btn-outline">Sair</button>
             </div>
         </nav>
 
-        <div id="admin-panel" class="module" style="display: none; max-width: 900px; margin: 20px auto;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2>Gestão de Sistema e Usuários</h2>
-                <button onclick="dispararRetreino()" id="btn-retrain" class="btn-success">
-                    🔄 Retreinar IA (Atualizar Base)
-                </button>
+        <div id="aba-geral" class="tab-content active-tab">
+            <div class="kpi-container">
+                <div class="kpi-card glass-panel">
+                    <h3>Headcount Ativo</h3>
+                    <h1 id="kpi-hc">0</h1>
+                </div>
+                <div class="kpi-card glass-panel">
+                    <h3>Taxa de Turnover</h3>
+                    <h1 id="kpi-turnover" style="color: #ff3b30;">0%</h1>
+                </div>
+                <div class="kpi-card glass-panel">
+                    <h3>Evasões Históricas</h3>
+                    <h1 id="kpi-evasoes">0</h1>
+                </div>
             </div>
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <input type="text" id="new-user" placeholder="E-mail / Usuário" style="flex:1;">
-                <input type="password" id="new-pass" placeholder="Senha Forte" style="flex:1;">
-                <select id="new-role" style="flex:1;">
-                    <option value="Analista">Analista (Leitura)</option>
-                    <option value="Administrador">Administrador</option>
-                </select>
-                <button onclick="criarUsuario()" class="btn-primary">Adicionar</button>
+
+            <div class="charts-grid-2">
+                <div class="chart-card glass-panel">
+                    <h3>Volume de Evasões por Departamento</h3>
+                    <div id="chart-departamentos"></div>
+                </div>
+                <div class="chart-card glass-panel">
+                    <h3>Equidade Salarial (Ativos vs Evasões)</h3>
+                    <div id="chart-salario"></div>
+                </div>
             </div>
-            <table class="s-rank-table" id="users-table">
-                <thead><tr><th>ID</th><th>Usuário</th><th>Perfil de Acesso</th><th>Ação</th></tr></thead>
-                <tbody></tbody>
-            </table>
         </div>
 
-        <main class="bento-grid" id="dashboard-content">
-            <div class="module kpi-card"><h3>Headcount Ativo</h3><div class="kpi-value" id="kpi-hc">--</div></div>
-            <div class="module kpi-card"><h3>Taxa de Turnover</h3><div class="kpi-value alert" id="kpi-turnover">--%</div></div>
-            <div class="module kpi-card"><h3>Evasões Históricas</h3><div class="kpi-value" id="kpi-evasoes">--</div></div>
-            <div class="module kpi-card" style="padding: 15px;">
-                <h3 style="margin-bottom: 15px;">Download Center</h3>
-                <button onclick="exportarTargetList('xlsx')" class="btn-export">📊 Exportar Target List</button>
+        <div id="aba-demografia" class="tab-content">
+            <div class="charts-grid-2">
+                <div class="chart-card glass-panel">
+                    <h3>Tempo Médio de Casa (Retenção)</h3>
+                    <div id="chart-tempo-medio"></div>
+                </div>
+                <div class="chart-card glass-panel">
+                    <h3>Dispersão: Salário vs Maturidade</h3>
+                    <div id="chart-dispersao"></div>
+                </div>
             </div>
+            <div class="charts-grid-2">
+                <div class="chart-card glass-panel">
+                    <h3>Evasões por Perfil Comportamental</h3>
+                    <div id="chart-perfil"></div>
+                </div>
+                <div class="chart-card glass-panel">
+                    <h3>Exportar Target List S-Rank</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Lista de colaboradores ativos com maior risco de evasão calculado pela IA.</p>
+                    <button class="btn-primary" onclick="baixarTargetList()" style="width: 100%; padding: 15px; font-size: 16px;">⬇️ Baixar Relatório (CSV)</button>
+                </div>
+            </div>
+        </div>
 
-            <div class="module chart-module" style="grid-column: span 2; grid-row: span 2;">
-                <h2>Equidade Salarial por Gênero/Perfil</h2>
-                <div id="chart-salario-genero" class="plotly-container"></div>
-            </div>
-            <div class="module chart-module" style="grid-column: span 2;">
-                <h2>Análise de Sobrevivência (Meses de Casa)</h2>
-                <div id="chart-tempo-casa" class="plotly-container"></div>
-            </div>
-            <div class="module chart-module" style="grid-column: span 2;">
-                <h2>Dispersão: Salário vs Maturidade</h2>
-                <div id="chart-bivariada" class="plotly-container"></div>
-            </div>
-            <div class="module chart-module" style="grid-column: span 2;">
-                <h2>Proporção de Fuga por Departamento</h2>
-                <div id="chart-departamentos" class="plotly-container"></div>
-            </div>
-            <div class="module chart-module" style="grid-column: span 2;">
-                <h2>Pirâmide Etária</h2>
-                <div id="chart-demografia" class="plotly-container"></div>
-            </div>
-            <div class="module chart-module" style="grid-column: span 2;">
-                <h2>Evasão por Perfil Comportamental</h2>
-                <div id="chart-perfil" class="plotly-container"></div>
-            </div>
-            <div class="module chart-module" style="grid-column: span 2;">
-                <h2>Volume de Saídas vs Carga Familiar</h2>
-                <div id="chart-dependentes" class="plotly-container"></div>
-            </div>
-            <div class="module chart-module" style="grid-column: span 4; min-height: 500px;">
-                <h2>Matriz de Correlação de Evasão (Peso Estratégico)</h2>
-                <div id="chart-correlacao" class="plotly-container"></div>
-            </div>
+        <div id="aba-admin" class="tab-content">
+            <div class="admin-panel glass-panel" style="max-width: 1000px; margin: 0 auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Gestão de Usuários e Sistema</h2>
+                    <button onclick="dispararRetreino()" id="btn-retrain" class="btn-success">🔄 Retreinar IA (Atualizar Base)</button>
+                </div>
 
-            <div class="module" style="grid-column: span 4; overflow-y: auto; max-height: 400px;">
-                <h2>Target List: Risco Crítico Imediato</h2>
-                <table class="s-rank-table" id="target-table">
-                    <thead><tr><th>ID Colaborador</th><th>Departamento</th><th>Perfil Comportamental</th><th>Probabilidade de Fuga</th></tr></thead>
-                    <tbody></tbody>
+                <div class="crud-form" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <input type="text" id="new-user" placeholder="Usuário de Rede" style="flex:1;">
+                    <input type="email" id="new-email" placeholder="E-mail Corporativo" style="flex:1;">
+                    <input type="password" id="new-pass" placeholder="Senha Forte" style="flex:1;">
+                    <select id="new-role" style="flex:1;">
+                        <option value="Analista (Leitura)">Analista (Leitura)</option>
+                        <option value="Administrador">Administrador</option>
+                    </select>
+                    <button class="btn-primary" onclick="adicionarUsuario()">Adicionar</button>
+                </div>
+
+                <table class="apple-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuário</th>
+                            <th>E-mail</th>
+                            <th>Perfil de Acesso</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-usuarios"></tbody>
                 </table>
             </div>
-        </main>
+        </div>
+
     </div>
 
     <script src="/static/script.js"></script>
