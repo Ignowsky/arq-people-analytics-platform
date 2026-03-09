@@ -23,7 +23,6 @@ Data/
 *.pdf
 *.xlsx
 *.xls
-*.json
 
 # --- Arquivos do Sistema Operacional e IDEs (Recomendado) ---
 .DS_Store
