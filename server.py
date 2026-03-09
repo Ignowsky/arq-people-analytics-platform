@@ -1,10 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import pandas as pd
 import sqlite3
-from pathlib import Path
 import joblib
 import subprocess
 import sys
@@ -12,54 +14,44 @@ import os
 
 app = FastAPI()
 
-# 1. Montando o Front-End
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# 2. Carregando a Inteligência (Modelo e Dados)
-raiz = Path(__file__).resolve().parent
-
-
-# Pega exatamente a pasta onde o server.py está
+# --- CONFIGURAÇÃO DE CAMINHOS ABSOLUTOS ---
+# Pega a pasta onde o server.py está (Raiz do projeto)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# 1. Montando o Front-End
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
+
+# 2. Carregando a Inteligência (Modelo e Dados)
 def carregar_inteligencia():
     global modelo, df
-    # Junta os caminhos usando os.path.join para não dar pau no Linux/Windows
-    caminho_modelo = os.path.join(BASE_DIR, "Models", "lr_turnover_model.pkl")
-    caminho_dados = os.path.join(BASE_DIR, "Data", "Processed", "obt_turnover_preparada.csv")
+    try:
+        caminho_modelo = os.path.join(BASE_DIR, "Models", "lr_turnover_model.pkl")
+        caminho_dados = os.path.join(BASE_DIR, "Data", "Processed", "obt_turnover_preparada.csv")
 
-    modelo = joblib.load(caminho_modelo)
-    df = pd.read_csv(caminho_dados)
+        modelo = joblib.load(caminho_modelo)
+        df = pd.read_csv(caminho_dados)
+        print("✅ Inteligência carregada com sucesso!")
+    except Exception as e:
+        print(f"⚠️ Erro ao carregar inteligência: {e}")
+
 
 carregar_inteligencia()
 
 
 # 3. Inicialização do Banco de Usuários (SQLite)
 def init_db():
-    conn = sqlite3.connect('enterprise_users.db')
+    # Salvando o banco na raiz para não perder o caminho
+    db_path = os.path.join(BASE_DIR, 'enterprise_users.db')
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS users
-                 (
-                     id
-                     INTEGER
-                     PRIMARY
-                     KEY
-                     AUTOINCREMENT,
-                     username
-                     TEXT
-                     UNIQUE,
-                     password
-                     TEXT,
-                     role
-                     TEXT
-                 )''')
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, role TEXT)''')
     c.execute("SELECT COUNT(*) FROM users")
     if c.fetchone()[0] == 0:
         c.execute("INSERT INTO users (username, password, role) VALUES ('admin_rh', '123456', 'Administrador')")
     conn.commit()
     conn.close()
-
 
 init_db()
 
@@ -127,18 +119,35 @@ def delete_user(user_id: int):
 @app.post("/api/retrain")
 def retrain_model():
     try:
-        caminho_main = raiz / "main.py"
-        subprocess.run([sys.executable, str(caminho_main)], check=True)
-        carregar_inteligencia()  # Recarrega modelo e CSV novos na memória
-        return {"msg": "Megazord retreinado com sucesso! A nova inteligência já está ativa."}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro crítico no retreino: {str(e)}")
+        # 🛡️ JUTSU DE EXECUÇÃO BLINDADA:
+        # Convertemos o caminho para string absoluta e usamos o interpretador atual (sys.executable)
+        caminho_main = os.path.join(BASE_DIR, "main.py")
 
+        # Executa o main.py e espera terminar
+        result = subprocess.run(
+            [sys.executable, caminho_main],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+
+        print(f"Log do Retreino: {result.stdout}")
+
+        # Recarrega modelo e CSV novos na memória RAM do servidor
+        carregar_inteligencia()
+
+        return {"msg": "Megazord retreinado com sucesso! A nova inteligência já está ativa."}
+    except subprocess.CalledProcessError as e:
+        # Se o erro for dentro do main.py, ele vai mostrar aqui o que foi
+        erro_detalhado = e.stderr if e.stderr else str(e)
+        raise HTTPException(status_code=500, detail=f"Erro na execução do main.py: {erro_detalhado}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erro crítico no servidor: {str(e)}")
 
 # 7. Rotas do Dashboard e Inteligência de Dados
 @app.get("/")
 def read_root():
-    return FileResponse("static/index.html")
+    return FileResponse(os.path.join(BASE_DIR, "static", "index.html"))
 
 
 @app.get("/api/departments")
