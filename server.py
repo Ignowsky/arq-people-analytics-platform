@@ -8,6 +8,7 @@ from pathlib import Path
 import joblib
 import subprocess
 import sys
+import os
 
 app = FastAPI()
 
@@ -18,11 +19,18 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 raiz = Path(__file__).resolve().parent
 
 
+# Pega exatamente a pasta onde o server.py está
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 def carregar_inteligencia():
     global modelo, df
-    modelo = joblib.load(raiz / "Models" / "lr_turnover_model.pkl")
-    df = pd.read_csv(raiz / "Data" / "Processed" / "obt_turnover_preparada.csv")
+    # Junta os caminhos usando os.path.join para não dar pau no Linux/Windows
+    caminho_modelo = os.path.join(BASE_DIR, "Models", "lr_turnover_model.pkl")
+    caminho_dados = os.path.join(BASE_DIR, "Data", "Processed", "obt_turnover_preparada.csv")
 
+    modelo = joblib.load(caminho_modelo)
+    df = pd.read_csv(caminho_dados)
 
 carregar_inteligencia()
 
