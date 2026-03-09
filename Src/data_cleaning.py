@@ -40,7 +40,7 @@ def cleaning_date_type(df, columns):
 
     for col in columns:
         if col in df_clean.columns:
-            df_clean[col] = pd.to_datetime(df_clean[col], format='mixed', dayfirst=True, errors='coerce')
+            df_clean[col] = pd.to_datetime(df_clean[col], format='%Y-%m-%d', dayfirst=True, errors='coerce')
 
     return df_clean
 

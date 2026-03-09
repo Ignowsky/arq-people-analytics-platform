@@ -1,98 +1,98 @@
 colaborador_sk,data_nascimento,genero,estado_civil,escolaridade,cep,bairro,cidade,estado,data_admissao,data_demissao,nivel_hierarquico,departamento_nome_api,cargo_nome_api,turno_trabalho,tipo_contrato,target_pediu_demissao,qtd_dependentes,perfil_comportamental,salario_contratual,valor_liquido
 98,1988-08-23,Masculino,Casado,Pós-Graduação/MBA,71917000,Norte (Águas Claras),Brasília,DF,2025-04-22,,Médio,TI,COORDENADOR DE INFRAESTRUTURA E SEGURANCA		,Integral,CLT,0,3,OUTROS,8654.0,2584.73
-35,1989-07-31,Feminino,Casado,Pós-Graduação/MBA,72236211,Ceilândia Sul (Ceilândia),Brasília,DF,2013-05-08,2024-07-08,Alto,ADMINISTRATIVO / FINANCEIRO,GERENTE ADMINISTRATIVO FINANCEIRO,Comercial,CLT,1,3,PA,7000.0,5462.75
-256,1985-09-22,Feminino,Solteiro,Superior Completo,72215201,CEILANDIA,Brasília,DF,2020-07-12,2021-09-28,Médio,OPERACIONAL,ANALISTA DE OPERACOES,Não Informado,CLT,1,0,Não Mapeado,1965.0,
-125,1979-06-11,Masculino,Divorciado,Superior Completo,70277060,Asa Sul,Brasília,DF,2025-09-22,,Alto,OUTROS,GERENTE DE NEGOCIOS,Comercial,CLT,0,1,E,15000.0,10699.1
-30,1988-07-12,Masculino,Casado,Superior Completo,74530250,Vila Boa Sorte,Goiânia,GO,2024-09-04,,Médio,TI,ARQUITETO DE SOFTWARE,Comercial,CLT,0,1,PA,5948.8,4947.29
-81,1997-10-27,Masculino,Solteiro,Superior Incompleto/Cursando,72879280,Ypiranga,Valparaíso de Goiás,GO,2023-10-07,,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,0,OUTROS,2491.0,1189.08
-16,1987-12-06,Masculino,Casado,Pos Graduacao,71882165,Riacho Fundo II,Brasília,DF,2024-01-15,,Médio,ADMINISTRATIVO / FINANCEIRO,LIDER ADMINISTRATIVO E FINANCEIRO,Comercial,CLT,0,3,OUTROS,7661.0,5880.41
-31,1987-06-03,Masculino,Solteiro,Superior Completo,71725701,CANDANGOLANDI,Brasília,DF,2021-05-04,2022-01-11,Médio,TI,ANALISTA DE TECNOLOGIA,Não Informado,CLT,1,0,OUTROS,5094.0,4621.38
-78,1996-09-02,Masculino,Solteiro,Superior Completo,72871661,Setor de Chácaras Anhangüera C,Valparaíso de Goiás,GO,2024-02-01,2024-06-29,Médio,OPERACIONAL,ASSISTENTE DE OPERACOES,Comercial,Contrato,1,0,E,1965.0,0.0
+35,1989-07-31,Feminino,Casado,Pós-Graduação/MBA,72236211,Ceilândia Sul (Ceilândia),Brasília,DF,2013-08-05,2024-08-07,Alto,ADMINISTRATIVO / FINANCEIRO,GERENTE ADMINISTRATIVO FINANCEIRO,Comercial,CLT,1,3,PA,7000.0,5462.75
+256,1985-09-22,Feminino,Solteiro,Superior Completo,72215201,CEILANDIA,Brasília,DF,2020-12-07,2021-09-28,Médio,OPERACIONAL,ANALISTA DE OPERACOES,Não Informado,CLT,1,0,Não Mapeado,1965.0,
+125,1979-11-06,Masculino,Divorciado,Superior Completo,70277060,Asa Sul,Brasília,DF,2025-09-22,,Alto,OUTROS,GERENTE DE NEGOCIOS,Comercial,CLT,0,1,E,15000.0,10699.1
+30,1988-12-07,Masculino,Casado,Superior Completo,74530250,Vila Boa Sorte,Goiânia,GO,2024-04-09,,Médio,TI,ARQUITETO DE SOFTWARE,Comercial,CLT,0,1,PA,5948.8,4947.29
+81,1997-10-27,Masculino,Solteiro,Superior Incompleto/Cursando,72879280,Ypiranga,Valparaíso de Goiás,GO,2023-07-10,,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,0,OUTROS,2491.0,1189.08
+16,1987-06-12,Masculino,Casado,Pos Graduacao,71882165,Riacho Fundo II,Brasília,DF,2024-01-15,,Médio,ADMINISTRATIVO / FINANCEIRO,LIDER ADMINISTRATIVO E FINANCEIRO,Comercial,CLT,0,3,OUTROS,7661.0,5880.41
+31,1987-03-06,Masculino,Solteiro,Superior Completo,71725701,CANDANGOLANDI,Brasília,DF,2021-04-05,2022-11-01,Médio,TI,ANALISTA DE TECNOLOGIA,Não Informado,CLT,1,0,OUTROS,5094.0,4621.38
+78,1996-02-09,Masculino,Solteiro,Superior Completo,72871661,Setor de Chácaras Anhangüera C,Valparaíso de Goiás,GO,2024-01-02,2024-06-29,Médio,OPERACIONAL,ASSISTENTE DE OPERACOES,Comercial,Contrato,1,0,E,1965.0,0.0
 26,1994-09-25,Masculino,Solteiro,Superior Incompleto/Cursando,66825185,Tapanã (Icoaraci),Belém,PA,2025-07-14,,Baixo,OPERACIONAL,ASSISTENTE OPERACIONAL,Comercial,CLT,0,0,AP,4749.0,1737.57
 8,1985-07-30,Feminino,Casado,Pos Graduacao,72583150,Setor Meireles (Santa Maria),Brasília,DF,2024-06-17,,Alto,OUTROS,GERENTE DE COMUNICACAO E MARKETING,Comercial,CLT,0,3,OUTROS,4949.4,2333.04
-59,1995-05-06,Feminino,União Estável,Pos Graduacao,72318585,Samambaia Norte (Samambaia),Brasília,DF,2025-06-16,,Baixo,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,1,OUTROS,5277.0,4664.12
-11,1985-01-01,Masculino,Casado,Superior Completo,73045151,Sobradinho,Brasília,DF,2024-02-01,2024-07-26,Médio,RELACIONAMENTO,ANALISTA DE BI II,Comercial,CLT,1,3,OUTROS,15748.0,12267.28
+59,1995-06-05,Feminino,União Estável,Pos Graduacao,72318585,Samambaia Norte (Samambaia),Brasília,DF,2025-06-16,,Baixo,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,1,OUTROS,5277.0,4664.12
+11,1985-01-01,Masculino,Casado,Superior Completo,73045151,Sobradinho,Brasília,DF,2024-01-02,2024-07-26,Médio,RELACIONAMENTO,ANALISTA DE BI II,Comercial,CLT,1,3,OUTROS,15748.0,12267.28
 96,2004-09-18,Feminino,Solteiro,Superior Incompleto/Cursando,72220096,Ceilândia,Brasília,DF,2023-02-13,,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,0,PA,2491.0,1044.08
-131,1982-09-17,Feminino,Casado,Pos Graduacao,71907000,Norte (Águas Claras),Brasília,DF,2023-04-12,2024-05-24,Médio,OUTROS,Analista de Comunicacao e Marketing III,Comercial,CLT,1,2,OUTROS,6000.0,0.0
-183,1998-10-23,Masculino,Solteiro,Superior Incompleto/Cursando,71680358,JARDIM,Brasília,DF,2020-11-18,2021-01-03,Médio,TI,ASSISTENTE DE TECNOLOGIA,MANHÃ,Estagiário,1,0,Não Mapeado,900.0,
-93,2004-03-05,Masculino,Solteiro,Medio Completo,72583250,Setor Meireles (Santa Maria),Brasília,DF,2023-03-05,2023-01-08,Baixo,OPERACIONAL,ASSISTENTE DE OPERACOES,Comercial,Temporário,1,0,OUTROS,1964.83,0.0
+131,1982-09-17,Feminino,Casado,Pos Graduacao,71907000,Norte (Águas Claras),Brasília,DF,2023-12-04,2024-05-24,Médio,OUTROS,Analista de Comunicacao e Marketing III,Comercial,CLT,1,2,OUTROS,6000.0,0.0
+183,1998-10-23,Masculino,Solteiro,Superior Incompleto/Cursando,71680358,JARDIM,Brasília,DF,2020-11-18,2021-03-01,Médio,TI,ASSISTENTE DE TECNOLOGIA,MANHÃ,Estagiário,1,0,Não Mapeado,900.0,
+93,2004-05-03,Masculino,Solteiro,Medio Completo,72583250,Setor Meireles (Santa Maria),Brasília,DF,2023-05-03,2023-08-01,Baixo,OPERACIONAL,ASSISTENTE DE OPERACOES,Comercial,Temporário,1,0,OUTROS,1964.83,0.0
 42,1989-01-25,Feminino,Casado,Pos Graduacao,73090903,Setor Habitacional Contagem (Sobradinho),Brasília,DF,2018-09-24,,Alto,OUTROS,DIRETORA JURIDICA ,Comercial,CLT,0,0,E,3166.0,2858.75
-380,2003-01-01,Feminino,Solteiro,Superior Incompleto/Cursando,72215300,Ceilândia Sul,Brasília,DF,2026-02-03,,Baixo,RELACIONAMENTO,ASSISTENTE DE RELACIONAMENTO,Comercial,CLT,0,0,CE,2487.68,
-121,1974-05-08,Feminino,Solteiro,Medio Completo,71880510,Riacho Fundo II,Brasília,DF,2014-01-10,,Médio,ADMINISTRATIVO / FINANCEIRO,AUXILIAR DE SERVICOS GERAIS,Comercial,CLT,0,2,OUTROS,2262.0,1098.51
-21,1991-11-23,Feminino,Casado,Superior Incompleto/Cursando,67125130,Icuí-Guajará,Ananindeua,PA,2022-07-11,,Médio,OPERACIONAL,ASSISTENTE OPERACIONAL,Comercial,CLT,0,3,PA,1823.0,1315.57
-218,1997-04-28,Masculino,Solteiro,Superior Completo,72006505,VICENTE PIRES,Brasília,DF,2021-03-05,2022-05-19,Médio,OPERACIONAL,ASSISTENTE DE OPERACOES,Não Informado,CLT,1,0,Não Mapeado,1965.0,
-3,1989-12-09,Masculino,Solteiro,Pós-Graduação/MBA,70658497,Cruzeiro Novo,Brasília,DF,2014-10-14,,Alto,OPERACIONAL,GERENTE DE OPERACOES,Comercial,CLT,0,0,PA,8653.0,5677.4
-14,1979-09-28,Feminino,União Estável,Superior Completo,71720595,Núcleo Bandeirante,Brasília,DF,2020-05-08,,Alto,OUTROS,GERENTE ADMINISTRATIVO FINANCEIRO,Comercial,CLT,0,1,EC,1965.0,1890.98
-57,1993-04-11,Masculino,Solteiro,Pos Graduacao,72251603,Ceilândia Norte (Ceilândia),Brasília,DF,2021-11-22,,Médio,TI,ENGENHEIRO DE DADOS I,Comercial,CLT,0,0,AP,3786.0,2532.94
-80,1996-05-06,Masculino,União Estável,Superior Completo,72306601,Samambaia Sul (Samambaia),Brasília,DF,2024-07-15,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO,Comercial,CLT,0,0,OUTROS,3166.0,2634.2
-7,1988-01-08,Masculino,Solteiro,Medio Completo,70210110,Villa Telebrasilia,Brasília,DF,2015-09-03,,Baixo,OUTROS,MOTORISTA,Comercial,CLT,0,1,OUTROS,7098.0,5453.22
-24,1990-04-22,Masculino,Divorciado,Tecnologo,72310000,Samambaia Sul (Samambaia),Brasília,DF,2025-01-08,,Médio,RELACIONAMENTO,LIDER DE RELACIONAMENTO,Comercial,CLT,0,2,Não Mapeado,4391.0,0.0
-400,1974-08-05,Masculino,Casado,Pos Graduacao,2346000,Jardim Leonor Mendes de Barros,São Paulo,SP,2026-02-03,,Alto,OUTROS,GERENTE DE NEGOCIOS,Comercial,CLT,0,2,Não Mapeado,15000.0,
+380,2003-01-01,Feminino,Solteiro,Superior Incompleto/Cursando,72215300,Ceilândia Sul,Brasília,DF,2026-03-02,,Baixo,RELACIONAMENTO,ASSISTENTE DE RELACIONAMENTO,Comercial,CLT,0,0,CE,2487.68,
+121,1974-08-05,Feminino,Solteiro,Medio Completo,71880510,Riacho Fundo II,Brasília,DF,2014-10-01,,Médio,ADMINISTRATIVO / FINANCEIRO,AUXILIAR DE SERVICOS GERAIS,Comercial,CLT,0,2,OUTROS,2262.0,1098.51
+21,1991-11-23,Feminino,Casado,Superior Incompleto/Cursando,67125130,Icuí-Guajará,Ananindeua,PA,2022-11-07,,Médio,OPERACIONAL,ASSISTENTE OPERACIONAL,Comercial,CLT,0,3,PA,1823.0,1315.57
+218,1997-04-28,Masculino,Solteiro,Superior Completo,72006505,VICENTE PIRES,Brasília,DF,2021-05-03,2022-05-19,Médio,OPERACIONAL,ASSISTENTE DE OPERACOES,Não Informado,CLT,1,0,Não Mapeado,1965.0,
+3,1989-09-12,Masculino,Solteiro,Pós-Graduação/MBA,70658497,Cruzeiro Novo,Brasília,DF,2014-10-14,,Alto,OPERACIONAL,GERENTE DE OPERACOES,Comercial,CLT,0,0,PA,8653.0,5677.4
+14,1979-09-28,Feminino,União Estável,Superior Completo,71720595,Núcleo Bandeirante,Brasília,DF,2020-08-05,,Alto,OUTROS,GERENTE ADMINISTRATIVO FINANCEIRO,Comercial,CLT,0,1,EC,1965.0,1890.98
+57,1993-11-04,Masculino,Solteiro,Pos Graduacao,72251603,Ceilândia Norte (Ceilândia),Brasília,DF,2021-11-22,,Médio,TI,ENGENHEIRO DE DADOS I,Comercial,CLT,0,0,AP,3786.0,2532.94
+80,1996-06-05,Masculino,União Estável,Superior Completo,72306601,Samambaia Sul (Samambaia),Brasília,DF,2024-07-15,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO,Comercial,CLT,0,0,OUTROS,3166.0,2634.2
+7,1988-08-01,Masculino,Solteiro,Medio Completo,70210110,Villa Telebrasilia,Brasília,DF,2015-03-09,,Baixo,OUTROS,MOTORISTA,Comercial,CLT,0,1,OUTROS,7098.0,5453.22
+24,1990-04-22,Masculino,Divorciado,Tecnologo,72310000,Samambaia Sul (Samambaia),Brasília,DF,2025-08-01,,Médio,RELACIONAMENTO,LIDER DE RELACIONAMENTO,Comercial,CLT,0,2,Não Mapeado,4391.0,0.0
+400,1974-05-08,Masculino,Casado,Pos Graduacao,2346000,Jardim Leonor Mendes de Barros,São Paulo,SP,2026-03-02,,Alto,OUTROS,GERENTE DE NEGOCIOS,Comercial,CLT,0,2,Não Mapeado,15000.0,
 97,1987-08-30,Feminino,Solteiro,Pós-Graduação/MBA,71927540,Sul (Águas Claras),Brasília,DF,2024-07-15,,Alto,ADMINISTRATIVO / FINANCEIRO,GERENTE ADMINISTRATIVO FINANCEIRO,Comercial,CLT,0,1,OUTROS,7388.0,1959.2
 65,1995-01-25,Masculino,Solteiro,Superior Completo,72879300,Ypiranga,Valparaíso de Goiás,GO,2023-02-13,,Médio,OPERACIONAL,ANALISTA OPERACIONAL II,Comercial,CLT,0,3,EC,3346.0,3116.79
-244,1982-08-05,Masculino,Casado,Superior Completo,71907180,AGUAS CLARAS,Brasília,DF,2021-02-18,2021-03-19,Médio,TI,ANALISTA DE TECNOLOGIA,DIURNO,CLT,1,0,Não Mapeado,7200.0,
-108,1981-06-20,Feminino,Solteiro,Pós-Graduação/MBA,70760715,Asa Norte,Brasília,DF,2023-10-07,,Alto,RELACIONAMENTO,GERENTE DE RELACIONAMENTO,Comercial,CLT,0,0,E,8696.0,2175.41
-89,2003-04-01,Feminino,Solteiro,Superior Incompleto/Cursando,72231224,Ceilândia Sul (Ceilândia),Brasília,DF,2025-07-04,,Baixo,OUTROS,ASSISTENTE DE GESTAO DE PESSOAS,Comercial,CLT,0,0,EC,2238.0,897.46
-56,1994-11-01,Masculino,Solteiro,Superior Completo,71939360,Sul (Águas Claras),Brasília,DF,2025-07-04,,Médio,RELACIONAMENTO,ANALISTA DE DADOS II,Comercial,CLT,0,0,OUTROS,10000.0,7441.38
+244,1982-05-08,Masculino,Casado,Superior Completo,71907180,AGUAS CLARAS,Brasília,DF,2021-02-18,2021-03-19,Médio,TI,ANALISTA DE TECNOLOGIA,DIURNO,CLT,1,0,Não Mapeado,7200.0,
+108,1981-06-20,Feminino,Solteiro,Pós-Graduação/MBA,70760715,Asa Norte,Brasília,DF,2023-07-10,,Alto,RELACIONAMENTO,GERENTE DE RELACIONAMENTO,Comercial,CLT,0,0,E,8696.0,2175.41
+89,2003-01-04,Feminino,Solteiro,Superior Incompleto/Cursando,72231224,Ceilândia Sul (Ceilândia),Brasília,DF,2025-04-07,,Baixo,OUTROS,ASSISTENTE DE GESTAO DE PESSOAS,Comercial,CLT,0,0,EC,2238.0,897.46
+56,1994-01-11,Masculino,Solteiro,Superior Completo,71939360,Sul (Águas Claras),Brasília,DF,2025-04-07,,Médio,RELACIONAMENTO,ANALISTA DE DADOS II,Comercial,CLT,0,0,OUTROS,10000.0,7441.38
 15,1987-09-18,Feminino,Casado,Superior Completo,71884516,Riacho Fundo II,Brasília,DF,2023-11-20,,Médio,TI,ANALISTA DE NEGOCIOS II,Comercial,CLT,0,3,EC,4094.5,3786.88
 64,1995-04-04,Feminino,Solteiro,Pos Graduacao,72155414,Taguatinga Norte (Taguatinga),Brasília,DF,2025-06-16,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA DE PLANEJAMENTO FINANCEIRO (FP&A),Comercial,CLT,0,0,PA,2093.0,2367.89
-83,2000-02-18,Masculino,Solteiro,Superior Completo,72546710,Santa Maria,Brasília,DF,2020-02-12,,Médio,OPERACIONAL,LIDER DE OPERACOES,Comercial,CLT,0,0,OUTROS,5328.0,4723.45
+83,2000-02-18,Masculino,Solteiro,Superior Completo,72546710,Santa Maria,Brasília,DF,2020-12-02,,Médio,OPERACIONAL,LIDER DE OPERACOES,Comercial,CLT,0,0,OUTROS,5328.0,4723.45
 94,2000-04-14,Feminino,Casado,Pos Graduacao,71070515,Guará II,Brasília,DF,2026-01-29,,Baixo,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO I,Integral,CLT,0,0,OUTROS,3166.0,
-60,1996-11-10,Masculino,Solteiro,Superior Incompleto/Cursando,71540400,Setor de Habitações Individuais Norte,Brasília,DF,2023-02-10,,Médio,OUTROS,ASSISTENTE ADMINISTRATIVO (JURIDICO),Comercial,CLT,0,0,PA,2262.0,2251.95
-61,1995-05-06,Masculino,Casado,Superior Completo,72876303,Parque Esplanada III,Valparaíso de Goiás,GO,2019-08-26,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO I,Comercial,CLT,0,1,OUTROS,6895.0,5515.54
-49,1992-06-04,Masculino,Solteiro,Pos Graduacao (cursando),72242065,Ceilândia Norte (Ceilândia),Brasília,DF,2024-06-17,,Médio,OUTROS,ANALISTA DE COMUNICACAO E MARKETING II,Comercial,CLT,0,2,PA,2322.0,2008.66
+60,1996-10-11,Masculino,Solteiro,Superior Incompleto/Cursando,71540400,Setor de Habitações Individuais Norte,Brasília,DF,2023-10-02,,Médio,OUTROS,ASSISTENTE ADMINISTRATIVO (JURIDICO),Comercial,CLT,0,0,PA,2262.0,2251.95
+61,1995-06-05,Masculino,Casado,Superior Completo,72876303,Parque Esplanada III,Valparaíso de Goiás,GO,2019-08-26,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO I,Comercial,CLT,0,1,OUTROS,6895.0,5515.54
+49,1992-04-06,Masculino,Solteiro,Pos Graduacao (cursando),72242065,Ceilândia Norte (Ceilândia),Brasília,DF,2024-06-17,,Médio,OUTROS,ANALISTA DE COMUNICACAO E MARKETING II,Comercial,CLT,0,2,PA,2322.0,2008.66
 55,1996-11-27,Masculino,Solteiro,Superior Completo,70770517,Asa Norte,Brasília,DF,2025-03-17,,Baixo,OPERACIONAL,ANALISTA DE DADOS I,Comercial,CLT,0,0,OUTROS,6332.0,5187.33
-119,1985-01-29,Feminino,Casado,Superior Completo,66095050,Marco,Não Informado,Não Informado,2025-07-04,2025-01-07,Médio,RELACIONAMENTO,ESPECIALISTA EM EXPERIENCIA DO CLIENTE,Comercial,CLT,1,0,CE,5000.0,0.0
-113,1986-11-24,Feminino,Solteiro,Pós-Graduação/MBA,73360515,Setor Residencial Leste (Planaltina),Brasília,DF,2022-08-06,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO I,Comercial,CLT,0,1,OUTROS,3430.0,1404.4
-48,1992-04-06,Masculino,Casado,Pós-Graduação/MBA,71996450,Setor Habitacional Arniqueira (Águas Claras),Brasília,DF,2015-02-03,,Médio,TI,PMO,Comercial,CLT,0,2,EC,2238.0,2167.62
+119,1985-01-29,Feminino,Casado,Superior Completo,66095050,Marco,Não Informado,Não Informado,2025-04-07,2025-07-01,Médio,RELACIONAMENTO,ESPECIALISTA EM EXPERIENCIA DO CLIENTE,Comercial,CLT,1,0,CE,5000.0,0.0
+113,1986-11-24,Feminino,Solteiro,Pós-Graduação/MBA,73360515,Setor Residencial Leste (Planaltina),Brasília,DF,2022-06-08,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO I,Comercial,CLT,0,1,OUTROS,3430.0,1404.4
+48,1992-06-04,Masculino,Casado,Pós-Graduação/MBA,71996450,Setor Habitacional Arniqueira (Águas Claras),Brasília,DF,2015-03-02,,Médio,TI,PMO,Comercial,CLT,0,2,EC,2238.0,2167.62
 86,1999-12-15,Masculino,Solteiro,Superior Incompleto/Cursando,72115035,Taguatinga Norte (Taguatinga),Brasília,DF,2022-10-19,,Médio,TI,TECNICO DE HELPDESK,Comercial,CLT,0,0,EC,3377.0,3194.89
-39,1996-08-11,Feminino,Solteiro,Superior Incompleto/Cursando,66050140,Umarizal,Belém,PA,2023-09-01,,Médio,OPERACIONAL,ASSISTENTE OPERACIONAL,Comercial,CLT,0,0,CE,4094.5,3930.0
+39,1996-11-08,Feminino,Solteiro,Superior Incompleto/Cursando,66050140,Umarizal,Belém,PA,2023-01-09,,Médio,OPERACIONAL,ASSISTENTE OPERACIONAL,Comercial,CLT,0,0,CE,4094.5,3930.0
 20,1994-12-27,Masculino,Solteiro,Superior Completo,70683190,Setor Noroeste,Brasília,DF,2018-12-17,,Alto,TI,DIRETOR DE TECNOLOGIA ,Comercial,CLT,0,2,PA,2413.0,1354.13
-112,1982-03-05,Feminino,Solteiro,Superior Completo,72150104,LNorte,Brasília,DF,2024-05-03,2025-05-13,Médio,OPERACIONAL,ANALISTA DE ATENDIMENTO I,Comercial,CLT,1,0,PA,2593.0,0.0
-43,1997-03-30,Masculino,Casado,Pos Graduacao,72878320,Cidade Jardins,Valparaíso de Goiás,GO,2016-03-05,,Médio,TI,DESENVOLVEDOR II,Comercial,CLT,0,2,PA,2491.0,1454.85
-109,1982-03-28,Masculino,Solteiro,Superior Completo,70770740,Asa Norte,Brasília,DF,2023-03-04,2026-05-01,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,1,0,CE,2813.0,2227.41
+112,1982-05-03,Feminino,Solteiro,Superior Completo,72150104,LNorte,Brasília,DF,2024-03-05,2025-05-13,Médio,OPERACIONAL,ANALISTA DE ATENDIMENTO I,Comercial,CLT,1,0,PA,2593.0,0.0
+43,1997-03-30,Masculino,Casado,Pos Graduacao,72878320,Cidade Jardins,Valparaíso de Goiás,GO,2016-05-03,,Médio,TI,DESENVOLVEDOR II,Comercial,CLT,0,2,PA,2491.0,1454.85
+109,1982-03-28,Masculino,Solteiro,Superior Completo,70770740,Asa Norte,Brasília,DF,2023-04-03,2026-01-05,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,1,0,CE,2813.0,2227.41
 9,1999-12-27,Masculino,Solteiro,Pos Graduacao,72006580,Setor Habitacional Vicente Pires,Brasília,DF,2025-03-17,,Médio,OUTROS,PEOPLE ANALYTICS II,Comercial,CLT,0,0,EC,5500.0,2489.32
-69,1995-05-06,Masculino,Solteiro,Superior Completo,72879300,YPIRANGA,Brasília,DF,2021-02-18,2022-07-13,Médio,TI,ANALISTA DE TECNOLOGIA,Comercial,CLT,1,0,Não Mapeado,3448.0,0.0
-128,1975-06-10,Feminino,Casado,Até Ensino Médio,72880990,Setor Mesquita,Cidade Ocidental,GO,2015-03-08,,Médio,OUTROS,AUXILIAR DE SERVICOS GERAIS,Comercial,CLT,0,2,CE,2093.0,1018.08
-122,1980-01-31,Masculino,Casado,Pos Graduacao,74730210,Conjunto Riviera,Goiânia,GO,2024-05-02,,Médio,TI,TECH LEAD,Comercial,CLT,0,3,AP,6895.0,2002.59
+69,1995-06-05,Masculino,Solteiro,Superior Completo,72879300,YPIRANGA,Brasília,DF,2021-02-18,2022-07-13,Médio,TI,ANALISTA DE TECNOLOGIA,Comercial,CLT,1,0,Não Mapeado,3448.0,0.0
+128,1975-10-06,Feminino,Casado,Até Ensino Médio,72880990,Setor Mesquita,Cidade Ocidental,GO,2015-08-03,,Médio,OUTROS,AUXILIAR DE SERVICOS GERAIS,Comercial,CLT,0,2,CE,2093.0,1018.08
+122,1980-01-31,Masculino,Casado,Pos Graduacao,74730210,Conjunto Riviera,Goiânia,GO,2024-02-05,,Médio,TI,TECH LEAD,Comercial,CLT,0,3,AP,6895.0,2002.59
 114,1988-01-01,Masculino,União Estável,Pos Graduacao (cursando),71015162,Guará I,Brasília,DF,2025-03-17,,Médio,OUTROS,INSIDE SALES,Comercial,CLT,0,0,PA,5277.0,2037.66
-10,1989-03-24,Feminino,Solteiro,Superior Completo,72415213,Setor Sul (Gama),Brasília,DF,2025-01-10,,Alto,OUTROS,GERENTE DE GESTAO DE PESSOAS,Comercial,CLT,0,0,AP,8774.0,3931.32
-45,1993-02-04,Feminino,Solteiro,Pos Graduacao,71805543,Riacho Fundo,Brasília,DF,2025-07-04,2026-09-01,Médio,RELACIONAMENTO,ANALISTA DE CUSTOMER SUCCESS I,Comercial,CLT,1,0,OUTROS,5328.0,4731.54
-111,1984-08-30,Feminino,Solteiro,Superior Completo,72235820,Ceilândia Sul (Ceilândia),Brasília,DF,2023-04-09,,Alto,OUTROS,ASSESSOR(A) DE DIRETORIA,Comercial,CLT,0,0,AP,2737.0,1451.35
-286,1985-04-22,Feminino,Solteiro,Superior Completo,71725504,Candangolândia,Brasília,DF,2026-09-03,,Alto,OPERACIONAL,ANALISTA OPERACIONAL I,Integral,CLT,0,0,E,2300.0,
-18,1989-11-05,Masculino,Solteiro,Superior Completo,71060638,Guara II,Brasília,DF,2023-07-08,,Médio,OUTROS,LIDER JURIDICO ,Comercial,CLT,0,0,PA,10000.0,7534.94
-95,2000-06-21,Feminino,Casado,Pos Graduacao,72860800,Vila União,Novo Gama,GO,2025-03-11,,Baixo,OUTROS,ANALISTA DE GESTAO DE PESSOAS,Não Informado,CLT,0,0,AP,3500.0,3387.2
-62,1995-08-28,Feminino,Solteiro,Pos Graduacao,72302008,Samambaia Sul,Brasília,DF,2021-05-04,2024-11-10,Médio,RELACIONAMENTO,ANALISTA DE DADOS,Comercial,CLT,1,0,AP,6271.0,4337.22
-77,1998-03-09,Masculino,Casado,Superior Completo,72250402,Ceilândia Norte (Ceilândia),Brasília,DF,2025-06-01,,Médio,TI,ANALISTA DE INFRAESTRUTURA E CLOUD III,Comercial,CLT,0,2,OUTROS,6332.0,1880.92
-27,1994-02-09,Masculino,Solteiro,Superior Completo,71900100,Aguas Claras,Brasília,DF,2021-09-13,,Médio,TI,ANALISTA DE NEGOCIOS I,Comercial,CLT,0,1,PA,3166.0,240.03
-72,1995-05-06,Feminino,Divorciado,Superior Completo,72878624,Parque Esplanada I,Valparaíso de Goiás,GO,2022-07-11,,Médio,OUTROS,ANALISTA DE DEPARTAMENTO PESSOAL II,Comercial,CLT,0,0,AP,3166.0,1376.39
+10,1989-03-24,Feminino,Solteiro,Superior Completo,72415213,Setor Sul (Gama),Brasília,DF,2025-10-01,,Alto,OUTROS,GERENTE DE GESTAO DE PESSOAS,Comercial,CLT,0,0,AP,8774.0,3931.32
+45,1993-04-02,Feminino,Solteiro,Pos Graduacao,71805543,Riacho Fundo,Brasília,DF,2025-04-07,2026-01-09,Médio,RELACIONAMENTO,ANALISTA DE CUSTOMER SUCCESS I,Comercial,CLT,1,0,OUTROS,5328.0,4731.54
+111,1984-08-30,Feminino,Solteiro,Superior Completo,72235820,Ceilândia Sul (Ceilândia),Brasília,DF,2023-09-04,,Alto,OUTROS,ASSESSOR(A) DE DIRETORIA,Comercial,CLT,0,0,AP,2737.0,1451.35
+286,1985-04-22,Feminino,Solteiro,Superior Completo,71725504,Candangolândia,Brasília,DF,2026-03-09,,Alto,OPERACIONAL,ANALISTA OPERACIONAL I,Integral,CLT,0,0,E,2300.0,
+18,1989-05-11,Masculino,Solteiro,Superior Completo,71060638,Guara II,Brasília,DF,2023-08-07,,Médio,OUTROS,LIDER JURIDICO ,Comercial,CLT,0,0,PA,10000.0,7534.94
+95,2000-06-21,Feminino,Casado,Pos Graduacao,72860800,Vila União,Novo Gama,GO,2025-11-03,,Baixo,OUTROS,ANALISTA DE GESTAO DE PESSOAS,Não Informado,CLT,0,0,AP,3500.0,3387.2
+62,1995-08-28,Feminino,Solteiro,Pos Graduacao,72302008,Samambaia Sul,Brasília,DF,2021-04-05,2024-10-11,Médio,RELACIONAMENTO,ANALISTA DE DADOS,Comercial,CLT,1,0,AP,6271.0,4337.22
+77,1998-09-03,Masculino,Casado,Superior Completo,72250402,Ceilândia Norte (Ceilândia),Brasília,DF,2025-01-06,,Médio,TI,ANALISTA DE INFRAESTRUTURA E CLOUD III,Comercial,CLT,0,2,OUTROS,6332.0,1880.92
+27,1994-09-02,Masculino,Solteiro,Superior Completo,71900100,Aguas Claras,Brasília,DF,2021-09-13,,Médio,TI,ANALISTA DE NEGOCIOS I,Comercial,CLT,0,1,PA,3166.0,240.03
+72,1995-06-05,Feminino,Divorciado,Superior Completo,72878624,Parque Esplanada I,Valparaíso de Goiás,GO,2022-11-07,,Médio,OUTROS,ANALISTA DE DEPARTAMENTO PESSOAL II,Comercial,CLT,0,0,AP,3166.0,1376.39
 40,1984-07-14,Feminino,União Estável,Medio Completo,72255016,Setor O ceilandia norte ,Brasília,DF,2023-05-15,,Médio,ADMINISTRATIVO / FINANCEIRO,AUXILIAR DE SERVICOS GERAIS,Comercial,CLT,0,1,OUTROS,2491.0,0.0
-13,1984-12-02,Feminino,Casado,Superior Completo,72871511,Setor de Chácaras Anhangüera A,Valparaíso de Goiás,GO,2022-01-12,,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,0,OUTROS,6974.16,4769.91
-187,1993-07-01,Masculino,Solteiro,Superior Incompleto/Cursando,72016250,TAGUATNGA,Brasília,DF,2021-09-13,2023-09-29,Baixo,ADMINISTRATIVO / FINANCEIRO,ANALISTA ADMINISTRATIVO,Comercial,CLT,1,0,Não Mapeado,2854.0,
-53,2007-05-14,Masculino,Solteiro,Medio Completo,70730630,Asa Norte,Brasília,DF,2026-06-02,,Médio,TI,ASSISTENTE DE DESENVOLVIMENTO DE SISTEMAS ,Vespertino,Contrato,1,0,OUTROS,8000.0,6004.85
+13,1984-02-12,Feminino,Casado,Superior Completo,72871511,Setor de Chácaras Anhangüera A,Valparaíso de Goiás,GO,2022-12-01,,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,0,OUTROS,6974.16,4769.91
+187,1993-01-07,Masculino,Solteiro,Superior Incompleto/Cursando,72016250,TAGUATNGA,Brasília,DF,2021-09-13,2023-09-29,Baixo,ADMINISTRATIVO / FINANCEIRO,ANALISTA ADMINISTRATIVO,Comercial,CLT,1,0,Não Mapeado,2854.0,
+53,2007-05-14,Masculino,Solteiro,Medio Completo,70730630,Asa Norte,Brasília,DF,2026-02-06,,Médio,TI,ASSISTENTE DE DESENVOLVIMENTO DE SISTEMAS ,Vespertino,Contrato,1,0,OUTROS,8000.0,6004.85
 82,1994-09-30,Feminino,Solteiro,Pós-Graduação/MBA,70675550,Setor Sudoeste,Brasília,DF,2024-07-15,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO II,Comercial,CLT,0,2,AP,3958.0,1502.18
 63,1995-09-19,Feminino,Solteiro,Superior Completo,71261620,VILA ESTRUTURAL,Brasília,DF,2021-09-13,2022-10-17,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO,Comercial,CLT,1,0,OUTROS,15000.0,10672.68
-130,1988-01-03,Feminino,Solteiro,Superior Completo,66070130,Canudos,Belém,PA,2021-04-26,,Baixo,OPERACIONAL,ANALISTA OPERACIONAL II,Comercial,CLT,0,2,OUTROS,3346.0,1531.27
-73,1997-12-11,Masculino,Solteiro,Superior Completo,72236210,Ceilândia Sul (Ceilândia) PSUL,Brasília,DF,2022-04-04,2023-10-02,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO,Comercial,CLT,1,0,Não Mapeado,2665.0,0.0
-204,1996-12-22,Masculino,Não Informado,Superior Completo,71572810,PARANOA,Brasília,DF,2021-03-15,2022-04-03,Baixo,ADMINISTRATIVO / FINANCEIRO,ANALISTA ADMINISTRATIVO,Não Informado,CLT,1,0,OUTROS,3000.0,
-268,1980-10-16,Masculino,Casado,Pos Graduacao,71926000,TAGUATINGA,Brasília,DF,2020-06-07,2021-05-13,Baixo,TI,ANALISTA DE TECNOLOGIA,DIURNO,CLT,1,0,Não Mapeado,10054.14,
-132,1999-10-12,Feminino,Solteiro,Superior Completo,71573023,Paranoá,Brasília,DF,2022-10-17,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA ADMINISTRATIVO I,Comercial,CLT,0,0,OUTROS,3422.0,2396.09
-107,1978-05-10,Masculino,Casado,Superior Completo,71909000,Norte (Águas Claras),Brasília,DF,2025-04-22,,Baixo,TI,ANALISTA DE TESTES/QA II,Integral,CLT,0,2,PA,6332.0,2089.8
-68,1992-05-11,Masculino,Solteiro,Pós-Graduação/MBA,70680519,Setor Sudoeste,Brasília,DF,2020-05-08,,Alto,OUTROS,GERENTE DE CONTROLADORIA ,Comercial,CLT,0,1,OUTROS,3422.0,2400.91
-66,1995-03-24,Feminino,Solteiro,Superior Incompleto/Cursando,72236800,Ceilândia Sul (Ceilândia),Brasília,DF,2023-03-04,,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,0,CE,3422.0,2400.91
-29,1989-02-19,Feminino,Solteiro,Superior Incompleto/Cursando,71687494,Jardins Mangueiral (Jardim Botânico),Brasília,DF,2023-10-07,2023-02-10,Baixo,OPERACIONAL,ASSISTENTE DE QUALIFICACAO,Comercial,Temporário,1,2,OUTROS,4749.0,4088.49
-47,1991-07-21,Feminino,Solteiro,Pos Graduacao,72876309,Parque Esplanada III,Valparaíso de Goiás,GO,2026-01-03,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO II,Comercial,CLT,0,1,OUTROS,3377.0,3210.71
+130,1988-03-01,Feminino,Solteiro,Superior Completo,66070130,Canudos,Belém,PA,2021-04-26,,Baixo,OPERACIONAL,ANALISTA OPERACIONAL II,Comercial,CLT,0,2,OUTROS,3346.0,1531.27
+73,1997-11-12,Masculino,Solteiro,Superior Completo,72236210,Ceilândia Sul (Ceilândia) PSUL,Brasília,DF,2022-04-04,2023-02-10,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO,Comercial,CLT,1,0,Não Mapeado,2665.0,0.0
+204,1996-12-22,Masculino,Não Informado,Superior Completo,71572810,PARANOA,Brasília,DF,2021-03-15,2022-03-04,Baixo,ADMINISTRATIVO / FINANCEIRO,ANALISTA ADMINISTRATIVO,Não Informado,CLT,1,0,OUTROS,3000.0,
+268,1980-10-16,Masculino,Casado,Pos Graduacao,71926000,TAGUATINGA,Brasília,DF,2020-07-06,2021-05-13,Baixo,TI,ANALISTA DE TECNOLOGIA,DIURNO,CLT,1,0,Não Mapeado,10054.14,
+132,1999-12-10,Feminino,Solteiro,Superior Completo,71573023,Paranoá,Brasília,DF,2022-10-17,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA ADMINISTRATIVO I,Comercial,CLT,0,0,OUTROS,3422.0,2396.09
+107,1978-10-05,Masculino,Casado,Superior Completo,71909000,Norte (Águas Claras),Brasília,DF,2025-04-22,,Baixo,TI,ANALISTA DE TESTES/QA II,Integral,CLT,0,2,PA,6332.0,2089.8
+68,1992-11-05,Masculino,Solteiro,Pós-Graduação/MBA,70680519,Setor Sudoeste,Brasília,DF,2020-08-05,,Alto,OUTROS,GERENTE DE CONTROLADORIA ,Comercial,CLT,0,1,OUTROS,3422.0,2400.91
+66,1995-03-24,Feminino,Solteiro,Superior Incompleto/Cursando,72236800,Ceilândia Sul (Ceilândia),Brasília,DF,2023-04-03,,Médio,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,CLT,0,0,CE,3422.0,2400.91
+29,1989-02-19,Feminino,Solteiro,Superior Incompleto/Cursando,71687494,Jardins Mangueiral (Jardim Botânico),Brasília,DF,2023-07-10,2023-10-02,Baixo,OPERACIONAL,ASSISTENTE DE QUALIFICACAO,Comercial,Temporário,1,2,OUTROS,4749.0,4088.49
+47,1991-07-21,Feminino,Solteiro,Pos Graduacao,72876309,Parque Esplanada III,Valparaíso de Goiás,GO,2026-03-01,,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA FINANCEIRO II,Comercial,CLT,0,1,OUTROS,3377.0,3210.71
 90,1999-05-22,Feminino,Solteiro,Pos Graduacao (cursando),73105903,Grande Colorado (Sobradinho),Brasília,DF,2025-02-19,,Médio,OUTROS,ASSISTENTE JURIDICO,Comercial,CLT,0,4,OUTROS,2322.0,1996.11
-51,1992-07-07,Feminino,Solteiro,Superior Completo,71071012,Guará II,Brasília,DF,2024-02-09,,Médio,OUTROS,ANALISTA ADMINISTRATIVO (DIRETORIA),Comercial,CLT,0,2,OUTROS,3500.0,3417.12
-124,1980-03-30,Feminino,Casado,Pos Graduacao,71592045,Itapoã Parque (Itapoã),Brasília,DF,2023-07-08,,Médio,TI,AUDITORA INTERNA,Comercial,CLT,0,3,EC,6271.0,4926.65
-58,1990-09-27,Masculino,Solteiro,Superior Completo,73060603,Setor Oeste (Sobradinho II),Brasília,DF,2023-04-09,2024-03-01,Baixo,OPERACIONAL,ASSISTENTE DE QUALIFICACAO,Comercial,Não Informado,1,0,CE,3430.0,3220.78
-46,1993-11-20,Masculino,Casado,Pos Graduacao,71884561,Riacho Fundo II,Não Informado,Não Informado,2025-07-04,2026-12-02,Médio,TI,ANALISTA DE SUPORTE DE SISTEMAS II,Comercial,CLT,1,2,OUTROS,3218.0,3266.62
-74,1999-04-14,Masculino,Solteiro,Superior Incompleto/Cursando,72304532,Samambaia Sul,Brasília,DF,2023-04-09,2024-08-11,Médio,TI,ANALISTA DE TECNOLOGIA,Comercial,CLT,1,0,CE,3500.0,0.0
-106,1981-06-04,Feminino,Casado,Pos Graduacao,73105903,SOBRADINHO,Brasília,DF,2021-08-03,2022-08-26,Alto,OPERACIONAL,ASSISTENTE DE OPERACOES,Comercial,CLT,1,0,Não Mapeado,3203.0,0.0
-12,1987-04-01,Feminino,Solteiro,Superior Completo,71010204,GUARA,Brasília,DF,2020-09-25,2022-10-13,Médio,ADMINISTRATIVO / FINANCEIRO,LIDER,Não Informado,CLT,1,0,E,2413.0,1841.21
-88,1999-06-22,Masculino,Casado,Pos Graduacao,72876027,Etapa A,Valparaíso de Goiás,GO,2025-09-15,2025-01-12,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA DE BI,Comercial,CLT,1,0,PA,7000.0,0.0
-127,1990-10-09,Feminino,União Estável,Superior Completo,66825010,Tapanã,Belém,PA,2024-09-16,2025-02-17,Médio,RELACIONAMENTO,COORDENADORA DE EXPERIENCIA DO CLIENTE,Comercial,CLT,1,2,E,5000.0,0.0
+51,1992-07-07,Feminino,Solteiro,Superior Completo,71071012,Guará II,Brasília,DF,2024-09-02,,Médio,OUTROS,ANALISTA ADMINISTRATIVO (DIRETORIA),Comercial,CLT,0,2,OUTROS,3500.0,3417.12
+124,1980-03-30,Feminino,Casado,Pos Graduacao,71592045,Itapoã Parque (Itapoã),Brasília,DF,2023-08-07,,Médio,TI,AUDITORA INTERNA,Comercial,CLT,0,3,EC,6271.0,4926.65
+58,1990-09-27,Masculino,Solteiro,Superior Completo,73060603,Setor Oeste (Sobradinho II),Brasília,DF,2023-09-04,2024-01-03,Baixo,OPERACIONAL,ASSISTENTE DE QUALIFICACAO,Comercial,Não Informado,1,0,CE,3430.0,3220.78
+46,1993-11-20,Masculino,Casado,Pos Graduacao,71884561,Riacho Fundo II,Não Informado,Não Informado,2025-04-07,2026-02-12,Médio,TI,ANALISTA DE SUPORTE DE SISTEMAS II,Comercial,CLT,1,2,OUTROS,3218.0,3266.62
+74,1999-04-14,Masculino,Solteiro,Superior Incompleto/Cursando,72304532,Samambaia Sul,Brasília,DF,2023-09-04,2024-11-08,Médio,TI,ANALISTA DE TECNOLOGIA,Comercial,CLT,1,0,CE,3500.0,0.0
+106,1981-04-06,Feminino,Casado,Pos Graduacao,73105903,SOBRADINHO,Brasília,DF,2021-03-08,2022-08-26,Alto,OPERACIONAL,ASSISTENTE DE OPERACOES,Comercial,CLT,1,0,Não Mapeado,3203.0,0.0
+12,1987-01-04,Feminino,Solteiro,Superior Completo,71010204,GUARA,Brasília,DF,2020-09-25,2022-10-13,Médio,ADMINISTRATIVO / FINANCEIRO,LIDER,Não Informado,CLT,1,0,E,2413.0,1841.21
+88,1999-06-22,Masculino,Casado,Pos Graduacao,72876027,Etapa A,Valparaíso de Goiás,GO,2025-09-15,2025-12-01,Médio,ADMINISTRATIVO / FINANCEIRO,ANALISTA DE BI,Comercial,CLT,1,0,PA,7000.0,0.0
+127,1990-09-10,Feminino,União Estável,Superior Completo,66825010,Tapanã,Belém,PA,2024-09-16,2025-02-17,Médio,RELACIONAMENTO,COORDENADORA DE EXPERIENCIA DO CLIENTE,Comercial,CLT,1,2,E,5000.0,0.0
 84,1998-09-23,Feminino,Casado,Superior Completo,72920433,Jardim da Barragem IV,Águas Lindas de Goiás,GO,2022-02-14,,Médio,OPERACIONAL,ANALISTA OPERACIONAL II,Comercial,CLT,0,1,EC,3218.0,2851.78
-76,1999-09-17,Feminino,Solteiro,Pos Graduacao,73740406,Jardim Roriz,Brasília,DF,2023-01-05,2023-08-09,Médio,OUTROS,ASSISTENTE ADMINISTRATIVO,Comercial,CLT,1,0,OUTROS,1893.0,0.0
-391,2003-05-30,Feminino,Solteiro,Superior Incompleto/Cursando,71727006,Candangolândia,Brasília,DF,2026-02-03,,Médio,OUTROS,ASSISTENTE DE COMUNICACAO E MARKETING ,Comercial,CLT,0,0,OUTROS,2300.0,
-33,1988-07-20,Feminino,Solteiro,Superior Completo,71573201,Paranoá,Brasília,DF,2024-05-02,,Baixo,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,Contrato,0,0,PA,2387.0,3240.36
+76,1999-09-17,Feminino,Solteiro,Pos Graduacao,73740406,Jardim Roriz,Brasília,DF,2023-05-01,2023-09-08,Médio,OUTROS,ASSISTENTE ADMINISTRATIVO,Comercial,CLT,1,0,OUTROS,1893.0,0.0
+391,2003-05-30,Feminino,Solteiro,Superior Incompleto/Cursando,71727006,Candangolândia,Brasília,DF,2026-03-02,,Médio,OUTROS,ASSISTENTE DE COMUNICACAO E MARKETING ,Comercial,CLT,0,0,OUTROS,2300.0,
+33,1988-07-20,Feminino,Solteiro,Superior Completo,71573201,Paranoá,Brasília,DF,2024-02-05,,Baixo,OPERACIONAL,ANALISTA OPERACIONAL I,Comercial,Contrato,0,0,PA,2387.0,3240.36
