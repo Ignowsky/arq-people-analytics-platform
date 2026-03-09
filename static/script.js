@@ -96,19 +96,64 @@ async function carregarDados() {
         const layoutBase = { margin: { t: 30, b: 40 }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)' };
 
         // ------------------ ABA 1: VISÃO GERAL ------------------
+// ------------------ ABA 1: VISÃO GERAL ------------------
+
+        // 1. DEPARTAMENTOS (Barra Horizontal para ler todos os nomes sem amassar)
+        // Criando um array ordenado para o maior ficar no topo
+        let depsOrdenados = [];
+        for(let i = 0; i < data.departamentos.nomes.length; i++) {
+            depsOrdenados.push({
+                nome: data.departamentos.nomes[i],
+                evasao: data.departamentos.evasoes[i]
+            });
+        }
+        // Ordena do menor pro maior (no Plotly 'h', o maior vai pro topo do gráfico)
+        depsOrdenados.sort((a,b) => a.evasao - b.evasao);
+
         Plotly.newPlot('chart-departamentos', [{
-            x: data.departamentos.nomes,
-            y: data.departamentos.evasoes,
+            y: depsOrdenados.map(d => d.nome),
+            x: depsOrdenados.map(d => d.evasao),
             type: 'bar',
-            marker: { color: corM, opacity: 0.8 }
-        }], layoutBase);
+            orientation: 'h', // Vira o gráfico de lado
+            marker: { color: corM, opacity: 0.8 },
+            hovertemplate: '<b>%{y}</b><br>Volume de Evasões: %{x}<extra></extra>'
+        }], { ...layoutBase, margin: { l: 160, t: 30, b: 40 } }); // Margem 'l' maior para caber os nomes longos
+
+
+        // 2. PERFIL COMPORTAMENTAL (Com a resenha completa no Hover/Tooltip)
+        const descricoesPerfis = {
+            'CE': 'Comunicador / Executor: Dinâmico, persuasivo, focado em ação e resultados rápidos.',
+            'EC': 'Executor / Comunicador: Liderança enérgica, pragmático, direto e carismático.',
+            'PA': 'Planejador / Analista: Organizado, metódico, focado em qualidade, processos e estabilidade.',
+            'AP': 'Analista / Planejador: Detalhista, perfeccionista, focado em regras e alta precisão.',
+            'CA': 'Comunicador / Analista: Sociável, mas bastante atento a detalhes e dados.',
+            'AC': 'Analista / Comunicador: Preciso e focado em fatos, mas sabe articular e se comunicar.',
+            'CP': 'Comunicador / Planejador: Empático, focado no bem-estar da equipe, mediação e harmonia.',
+            'PC': 'Planejador / Comunicador: Paciente, excelente ouvinte e agregador nato.',
+            'EA': 'Executor / Analista: Focado em metas brutas com alto rigor técnico e qualidade.',
+            'AE': 'Analista / Executor: Estratégico, exigente, focado em eficiência e execução precisa.',
+            'EP': 'Executor / Planejador: Prático, foca em executar com cadência, ritmo e constância.',
+            'PE': 'Planejador / Executor: Consistente, focado em manter rotinas e entregas seguras.',
+            'C': 'Comunicador: Extrovertido, focado em pessoas, networking e conexões.',
+            'E': 'Executor: Competitivo, focado 100% em metas, desafios e velocidade.',
+            'P': 'Planejador: Calmo, previsível, focado em processos e constância de longo prazo.',
+            'A': 'Analista: Lógico, crítico, focado em exatidão e qualidade profunda.',
+            'Não Mapeado': 'Colaborador ainda não realizou o assessment na Solides.',
+            'OUTROS': 'Grupos menores agregados pela IA.'
+        };
+
+        // Mapeia os textos para injetar na "caixinha" do mouse
+        const textosHover = data.perfil.nomes.map(p => descricoesPerfis[p] || 'Resumo não disponível.');
 
         Plotly.newPlot('chart-perfil', [{
-            labels: data.perfil.nomes,
+            labels: data.perfil.nomes, // Mantém a sigla fora
             values: data.perfil.valores,
             type: 'pie',
             hole: 0.5,
-            marker: { colors: [corM, corF, '#7a85e0', '#a8b0eb'] }
+            textinfo: 'label+percent',
+            hovertext: textosHover, // Injeta o textão
+            hovertemplate: '<b>Perfil %{label}</b><br>%{hovertext}<br><br>Evasões: %{value} (%{percent})<extra></extra>', // O formato da caixinha
+            marker: { colors: [corM, corF, '#7a85e0', '#a8b0eb', '#c9cff5'] }
         }], layoutBase);
 
         // ------------------ ABA 2: DEMOGRAFIA (EDA) ------------------
@@ -183,7 +228,6 @@ async function carregarDados() {
     }
 }
 
-// ... (MANTENHA AS FUNÇÕES BAIXARTARGETLIST(), CARREGARUSUARIOS(), ADICIONARUSUARIO(), DELETARUSUARIO() E DISPARARRETREINO() IGUAIS AO CÓDIGO ANTERIOR) ...
 
 function baixarTargetList() {
     if(!window.targetListData || window.targetListData.length === 0) return alert("Sem dados para exportar.");
