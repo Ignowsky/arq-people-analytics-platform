@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,6 +20,8 @@ except ImportError:
     from ml_preprocessing import drop_leakage_columns, split_train_test, build_preprocessor
 
 logger = setup_logger(__name__)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def evaluate_model(model, X_train, y_train, X_test, y_test):
@@ -62,13 +65,14 @@ def evaluate_model(model, X_train, y_train, X_test, y_test):
 
     plt.tight_layout()
 
-    caminho_atual = Path(__file__).resolve().parent
-    pasta_logs = caminho_atual.parent / "Logs"
-    pasta_logs.mkdir(parents=True, exist_ok=True)
+    pasta_logs = os.path.join(BASE_DIR, "Logs")
+    os.makedirs(pasta_logs, exist_ok=True)  # Cria a pasta se não existir
 
-    fig.savefig(pasta_logs / 'Matriz_Confusao_Final.png', bbox_inches='tight', dpi=300)
+    caminho_imagem = os.path.join(pasta_logs, 'Matriz_Confusao_Final.png')
+    fig.savefig(caminho_imagem, bbox_inches='tight', dpi=300)
     plt.close(fig)
-    logger.info(f"SUCESSO: Auditoria finalizada e gráficos salvos em Logs/.")
+
+    logger.info(f"SUCESSO: Auditoria finalizada e gráficos salvos em {pasta_logs}")
 
 
 def run_training(df):
@@ -86,12 +90,9 @@ def run_training(df):
         df_clean['departamento_nome_api'] == 'RELACIONAMENTO', 1, 0
     )
 
-    # .parent denovo nos leva para a raiz A:\linear_regression
-    raiz_projeto = Path(__file__).resolve().parent.parent
-    pasta_modelos = raiz_projeto / "Models"
-
-    # Garante que a pasta existe. Se não existir, ele cria na hora.
-    pasta_modelos.mkdir(parents=True, exist_ok=True)
+    # Ajuste do caminho absoluto pra salvar a IA
+    pasta_modelos = os.path.join(BASE_DIR, "Models")
+    os.makedirs(pasta_modelos, exist_ok=True)
 
     # 3. A LISTA SAGRADA (Sincronizada com seu pedido)
     features_campeas = [
@@ -138,7 +139,7 @@ def run_training(df):
     # ---------------------------------------------------------
     # MUDANÇA TÁTICA: SALVAR O MODELO ANTES DE GERAR OS GRÁFICOS
     # ---------------------------------------------------------
-    caminho_modelo = pasta_modelos / "lr_turnover_model.pkl"
+    caminho_modelo = os.path.join(pasta_modelos, "lr_turnover_model.pkl")
     joblib.dump(pipeline_final, caminho_modelo)
     logger.info(f"SUCESSO ABSOLUTO: Modelo salvo em: {caminho_modelo}")
 

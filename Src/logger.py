@@ -1,6 +1,6 @@
 import logging
 from logging.handlers import RotatingFileHandler
-from pathlib import Path
+import os
 
 
 def setup_logger(nome_modulo=None):
@@ -8,19 +8,18 @@ def setup_logger(nome_modulo=None):
     Configura e retorna um logger padronizado S-Rank.
     Salva logs na pasta raiz do projeto (Logs/) e mostra no terminal.
     """
-    # 1. O Jutsu de Localização: Descobre a raiz do projeto dinamicamente
-    # __file__ é o logger.py. O parent dele é a pasta 'Src'. O parent do 'Src' é a raiz 'PythonProject'.
-    caminho_atual = Path(__file__).resolve().parent
-    raiz_projeto = caminho_atual.parent
+    # 1. O Jutsu de Localização Absoluta: Descobre a raiz do projeto dinamicamente
+    # __file__ é o logger.py. O dirname dele é 'Src'. O dirname do 'Src' é a raiz do projeto.
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    # 2. Define o caminho absoluto para a pasta de logs
-    pasta_logs = raiz_projeto / 'Logs'
-    pasta_logs.mkdir(exist_ok=True)  # Cria a pasta se não existir, sem dar erro
+    # 2. Define o caminho absoluto para a pasta de logs usando os.path.join
+    pasta_logs = os.path.join(BASE_DIR, 'Logs')
+    os.makedirs(pasta_logs, exist_ok=True)  # Cria a pasta se não existir, blindado pro Linux
 
-    arquivo_log = pasta_logs / 'logs_lr_model'
+    # Adicionei a extensão .log pra ficar no padrão corporativo
+    arquivo_log = os.path.join(pasta_logs, 'logs_lr_model.log')
 
     # 3. Configura o formatador (Data - Nível - Modulo - LINHA DO ERRO - Mensagem)
-    # Adicionei o %(lineno)d pra você saber exatamente qual linha do código deu B.O.
     formatter = logging.Formatter('%(asctime)s - [%(levelname)s] - %(name)s:%(lineno)d - %(message)s')
 
     # 4. Handler de Arquivo (Rotativo: max 5MB, guarda 3 arquivos antigos)

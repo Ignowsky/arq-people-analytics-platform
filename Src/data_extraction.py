@@ -1,12 +1,16 @@
 # SRC/data_extraction.py
 
 # Importando as libs
+import os
 import pandas as pd
-from pathlib import Path
 
 # Importandos os módulos da pasta raiz.
-from logger import setup_logger
-from database import connect_to_db
+try:
+    from .logger import setup_logger
+    from .database import connect_to_db
+except ImportError:
+    from logger import setup_logger
+    from database import connect_to_db
 
 # Iniciando o logger
 logger = setup_logger(__name__)
@@ -30,7 +34,7 @@ def extract_data_from_dw():
         logger.error(f"ERROR: Falha na comunicação com o DW verificar as conexão. Motivo {e}")
         raise
 
-def save_raw_backup(df, file_name = "obt_turnover_bruta.csv"):
+def save_raw_backup(df, file_name="obt_turnover_bruta.csv"):
     """
     Função: receber o dataframe gerado pela query e salvar na pasta Data/Raw
     :param df: dataframe
@@ -38,16 +42,16 @@ def save_raw_backup(df, file_name = "obt_turnover_bruta.csv"):
     :return: csv salvo na pasta Raw
     """
     try:
-        # Encontrando a raiz do projeto dinamicamente
-        caminho_atual = Path(__file__).resolve().parent
-        raiz_projeto = caminho_atual.parent
+        # O Jutsu de Localização Absoluta S-Rank
+        # __file__ é o data_extraction.py. O dirname dele é 'Src'. O dirname do 'Src' é a raiz.
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-        # Montando o caominho exato e garatindo a existência da pasta
-        pasta_raw = raiz_projeto / "Data" / "Raw"
-        pasta_raw.mkdir(parents=True, exist_ok=True)
+        # Montando o caminho exato e garantindo a existência da pasta no Linux/Windows
+        pasta_raw = os.path.join(BASE_DIR, "Data", "Raw")
+        os.makedirs(pasta_raw, exist_ok=True)
 
         # Gravando o arquivo no disco
-        caminho_completo = pasta_raw / file_name
+        caminho_completo = os.path.join(pasta_raw, file_name)
         df.to_csv(caminho_completo, index=False)
 
         logger.info(f"SUCESSO: Backup estático salvo em: {caminho_completo}")
