@@ -62,14 +62,31 @@ function mostrarAba(abaId, elementoBotao) {
 
 // --- CARREGAMENTO DE DADOS ---
 async function carregarDepartamentos() {
-    const res = await fetch('/api/departments');
-    const deps = await res.json();
-    const select = document.getElementById('filtro-departamento');
-    deps.forEach(d => {
-        let opt = document.createElement('option');
-        opt.value = d; opt.innerHTML = d;
-        select.appendChild(opt);
-    });
+    try {
+        const res = await fetch('/api/departments');
+        const deps = await res.json();
+
+        // O NOSSO X-9: Vai dedurar no console (F12) o que tá vindo do banco
+        console.log("🔎 Departamentos lidos pela API:", deps);
+
+        const select = document.getElementById('filtro-departamento');
+        // Limpa a caixa pra não duplicar
+        select.innerHTML = '<option value="Todos">Visão Global da Empresa</option>';
+
+        // Verifica se realmente veio uma lista antes de tentar preencher
+        if (Array.isArray(deps)) {
+            deps.forEach(d => {
+                let opt = document.createElement('option');
+                opt.value = d;
+                opt.innerHTML = d;
+                select.appendChild(opt);
+            });
+        } else {
+            console.error("🚨 Erro: A API não mandou uma lista válida!", deps);
+        }
+    } catch (error) {
+        console.error("🔥 Erro crasso ao puxar departamentos:", error);
+    }
 }
 
 async function carregarDados() {
