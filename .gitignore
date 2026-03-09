@@ -24,6 +24,7 @@ Data/
 *.xlsx
 *.xls
 
+
 # --- Arquivos do Sistema Operacional e IDEs (Recomendado) ---
 .DS_Store
 .vscode/
