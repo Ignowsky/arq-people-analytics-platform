@@ -240,7 +240,7 @@ async function dispararRetreino() {
     btn.disabled = true;
 
     try {
-        const res = await fetch('/api/retrain', { method: 'POST' });
+        const res = await fetch('/api/retrain', {method: 'POST'});
         if (res.ok) {
             alert('Sucesso! Megazord retreinado. Novos padrões detectados.');
             carregarDados();
@@ -254,5 +254,6 @@ async function dispararRetreino() {
         btn.innerHTML = '🔄 Retreinar IA (Atualizar Base)';
         btn.style.backgroundColor = 'var(--success-green)';
         btn.disabled = false;
+        }
     }
 }
