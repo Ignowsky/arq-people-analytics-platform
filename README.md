@@ -1,4 +1,4 @@
-# 🛡️ Enterprise Analytics: Retention Intelligence Unit (S-Rank)
+# 🛡️ ARQ People Analytics - Turnover Prediction
 
 > **"Prever o futuro não é mágica, é matemática aplicada com visão de negócio."**
 > 
