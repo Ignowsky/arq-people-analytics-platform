@@ -69,7 +69,7 @@ def rodar_teste_real():
     })
 
     # Ordenar pelos que estão com o nível de estresse no talo
-    df_relatorio = df_relatorio.sort_values(by='Risco_Fuga (%)', ascending=False).head()
+    df_relatorio = df_relatorio.sort_values(by='Risco_Fuga (%)', ascending=False).head(10)
 
     print("\n" + "=" * 70)
     print("🚨 TARGET LIST PRODUÇÃO - TOP 10 COLABORADORES ATIVOS EM RISCO 🚨")
