@@ -9,7 +9,7 @@ import joblib
 from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, PrecisionRecallDisplay
 from sklearn.model_selection import cross_val_score, train_test_split
 
 try:
@@ -37,7 +37,11 @@ def evaluate_model(model, X_train, y_train, X_test, y_test):
 
     # 2. Previsões para as duas bases
     y_pred_train = model.predict(X_train)
-    y_pred_test = model.predict(X_test)
+    
+    # Diminuindo a limiar de decisão para aumentar o recall (ajustado para 0.39 com base na curva ROC)
+    probabilidade_testes = model.predict_proba(X_test)[:, 1]
+    
+    y_pred_test_custo = (probabilidade_testes >= 0.39).astype(int)
 
     # ---------------------------------------------------------
     # 🔥 A PROVA DO RECALL (RELATÓRIO DE MÉTRICAS CONSOLIDADO)
@@ -50,11 +54,11 @@ def evaluate_model(model, X_train, y_train, X_test, y_test):
     print('\n' + '=' * 60)
     print('--- A PROVA DO RECALL (RELATÓRIO DE MÉTRICAS CONSOLIDADO) ---')
     print('=' * 60)
-    print(classification_report(y_test, y_pred_test))
+    print(classification_report(y_test, y_pred_test_custo))
     print('=' * 60)
 
     # 3. Gerando a Matriz de Confusão Visual (Base de Teste)
-    cm = confusion_matrix(y_test, y_pred_test)
+    cm = confusion_matrix(y_test, y_pred_test_custo)
     fig, ax = plt.subplots(figsize=(7, 5))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', linewidths=.5, cbar=False,
                 annot_kws={"size": 16, "weight": "bold"}, ax=ax)
@@ -119,11 +123,13 @@ def run_training(df):
     pipeline_final.fit(X_train, y_train)
 
     # Invocando o preprocessor com o StandardScaler que acabamos de configurar
+    # Adicionando o parâmetro k_neighbors = 2 para o SMOTE, para diminuir a alucinação sintética
     preprocessor = build_preprocessor()
-    smote = SMOTE(random_state=42)
+    smote = SMOTE(random_state=42, k_neighbors = 2)
 
     # Regressão Logística com pesos balanceados
-    lr_campeao = LogisticRegression(random_state=42, solver='liblinear', class_weight='balanced')
+    # Adicionando o parâmetro C para controle de regularização (ajustado para evitar overfitting)
+    lr_campeao = LogisticRegression(random_state=42, solver='liblinear', class_weight='balanced', C = 0.1)
 
     # O Pipeline orquestra a ordem dos Jutsus
     pipeline_final = Pipeline(steps=[
@@ -145,5 +151,34 @@ def run_training(df):
 
     # Agora sim, fazemos a auditoria visual
     evaluate_model(pipeline_final, X_train, y_train, X_test, y_test)
+    
+    # ----------------------------------------------------------
+    # Adicionando a curva Recall-Precision para a base de teste
+    # ----------------------------------------------------------
+    
+    logger.info("Gerando a Curva Recall-Precision para a base de teste...")
+    pasta_logs = os.path.join(BASE_DIR, "Logs")
+    fig_pr, ax_pr = plt.subplots(figsize = (7,5))
+    
+    # Usando o Scikit-learn para plotar a curva
+    display = PrecisionRecallDisplay.from_estimator(
+        pipeline_final,
+        X_test,
+        y_test,
+        name = "Regressão Logística (SMOTE)",
+        ax = ax_pr,
+        color = "crimson",
+        linewidth = 2
+    )
+    
+    ax_pr.set_title("Curva Recall-Precision - Base de Teste", fontsize = 14, pad = 20, weight = "bold")
+    plt.tight_layout()
+    
+    # Salvando a curva no mesmo diretório dos logs
+    caminho_curva_pr = os.path.join(pasta_logs, "Curva_Recall_Precision.png")
+    fig_pr.savefig(caminho_curva_pr, bbox_inches = "tight", dpi = 300)
+    
+    plt.close(fig_pr)
+    logger.info(f"Curva Recall-Precision salva com sucesso em: {caminho_curva_pr}")
 
     return pipeline_final

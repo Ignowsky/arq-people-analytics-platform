@@ -57,6 +57,10 @@ def rodar_teste_real():
     # Como modelo_pipeline é um Pipeline do Sklearn, ele vai rodar o transform()
     # do StandardScaler automaticamente antes de prever!
     probabilidades = modelo_pipeline.predict_proba(X_ativos)[:, 1]
+    
+    limiar_risco = 0.39
+    
+    df_ativos['Classificação_Risco'] = np.where(probabilidades >= limiar_risco, 'Alto Risco', 'Baixo Risco')
 
 
     # 7. Montando a Fila de Prioridade pro RH
@@ -65,7 +69,8 @@ def rodar_teste_real():
         'Departamento': df_ativos['departamento_nome_api'],
         'Perfil': df_ativos['perfil_comportamental'],
         'Tempo_Casa_Meses': df_ativos['meses_de_casa'],
-        'Risco_Fuga (%)': (probabilidades * 100).round(2)
+        'Risco_Fuga (%)': (probabilidades * 100).round(2),
+        'Classificação_Risco': df_ativos['Classificação_Risco']
     })
 
     # Ordenar pelos que estão com o nível de estresse no talo
