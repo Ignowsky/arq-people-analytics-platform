@@ -103,6 +103,3 @@ FROM base_Colaboradores bC
 
 
 
-SELECT *
-FROM "FOPAG".dim_colaboradores
-WHERE colaborador_sk IN (258, 218, 246, 187, 270, 204, 183);

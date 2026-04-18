@@ -71,6 +71,53 @@ def creating_region_column(df):
 
     return df_clean
 
+def creating_salary_range(df):
+    """
+    Cria categorias salariais usando a função pd.qcut do pandas, que seapra o dataset em 3 faixas perfeitamentes iguais baseada na distribuição real da base
+    :param df: df_bruto
+    :return: df_clean
+    """
+
+    logger.info("[INICIANDO]: Criação de uma nova feature de faixas salariais")
+    df_clean = df.copy()
+
+    # Utilizando o qcut que divide em 3 faixas balanceadas
+    df_clean['faixa_salarial'] = pd.qcut(
+        df_clean['salario_contratual'],
+        q = 3,
+        labels = ['Baixo', 'Médio', 'Alto']
+    )
+
+    df_clean = df_clean.drop(columns = ['salario_contratual'])
+
+    return df_clean
+
+def creating_demographinc_ranges(df):
+    logger.info("[INICIANDO]: Binarização de Dependentes e Fatiamento de Idades")
+
+    df_clean = df.copy()
+
+    # Regra do zero: Tem ou não dependentes? (1 ou 0)
+
+    df_clean['is_com_dependentes'] = np.where(
+        df_clean['qtd_dependentes'] > 0, 1, 0
+    )
+
+    # Fatiamento Geracional e momento de carreira
+    # Cortes definidos: até 25 anos | de 26 a 35 anos | acima de 35 anos
+    bins_idade = [0, 25, 35, 100]
+    labels_idade = ['Ate_25', '26_a_35', 'Acima_35']
+
+    df_clean['faixa_idade'] = pd.cut(
+        df_clean['idade'],
+        bins = bins_idade,
+        labels = labels_idade
+    )
+
+    # Limpando o dataset para evitar multicolinearidade
+    df_clean = df_clean.drop(columns = ['idade', 'qtd_dependentes'])
+
+    return df_clean
 
 def run_feature_engineering(df):
     """
@@ -84,6 +131,8 @@ def run_feature_engineering(df):
         df_feat = creating_cutoff_date(df)
         df_feat = creating_age_column(df_feat)
         df_feat = creating_hometime_column(df_feat)
+        df_feat = creating_salary_range(df_feat)
+        df_feat = creating_demographinc_ranges(df_feat)
         df_feat = creating_region_column(df_feat)
 
         # Opcional: se você modularizou aqueles agrupamentos (DRY)
