@@ -1,78 +1,72 @@
 import sys
 import os
 
-# Jutsu de Localização Absoluta S-Rank: Ancorando na raiz do projeto
+# Configuração de caminhos absolutos
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(BASE_DIR, "Src"))
 
-# Importando os Capitães de cada Batalhão (Facade Pattern S-Rank)
-from Src.logger import setup_logger
-from Src.data_extraction import extract_data_from_dw, save_raw_backup
-from Src.data_cleaning import run_data_cleaning
-from Src.feature_engineering import run_feature_engineering
-from Src.train import run_training
+# Importação de módulos
+try:
+    from Src.logger import setup_logger
+    from Src.DataConnection import DataConnection
+    from Src.DataExtractor import DataExtractor
+    from Src.DataProcessor import DataProcessor
+    from Src.SurvivalEngine import SurvivalEngine
+except ImportError as e:
+    print(f"[ERRO CRÍTICO] Falha na importação de módulos. Detalhes: {e}")
+    sys.exit(1)
 
 logger = setup_logger("MAIN_ORCHESTRATOR")
 
 
 def rodar_esteira_mlops():
     """
-    O General supremo: Delega as tarefas na ordem exata da nossa arquitetura.
+    Orquestrador principal do pipeline de Machine Learning.
+    Instancia as classes e executa as fases de processamento sequencialmente.
     """
-    logger.info("🔥 INICIANDO O MEGAZORD: ESTEIRA DE MLOPS S-RANK 🔥")
-    logger.info("=" * 60)
+    logger.info("=== INICIANDO PIPELINE DE MLOPS (TREINAMENTO) ===")
 
     try:
         # ---------------------------------------------------------
-        # FASE 1: O GARIMPO (Extração do Banco de Dados)
+        # FASE 1: Conexão e Extração
         # ---------------------------------------------------------
-        logger.info("▶️ FASE 1: Extração de Dados do PostgreSQL...")
-        df_raw = extract_data_from_dw()
-        save_raw_backup(df_raw)  # Salva o "Save State" na pasta Raw
-        logger.info("✅ FASE 1 CONCLUÍDA.")
-        logger.info("-" * 30)
+        logger.info("[FASE 1] Iniciando conexão e extração de dados do PostgreSQL...")
+
+        conexao = DataConnection()
+        engine, schema = conexao.connect_to_db()
+
+        extrator = DataExtractor(engine, schema)
+        df_bruto = extrator.extract_obt_turnover()
+
+        extrator.save_raw_backup(df_bruto)
+        logger.info("[FASE 1] Extração e backup bruto concluídos com sucesso.")
 
         # ---------------------------------------------------------
-        # FASE 2: A FAXINA (Limpeza e Padronização)
+        # FASE 2 e 3: Processamento de Dados
         # ---------------------------------------------------------
-        logger.info("▶️ FASE 2: Limpeza de Nulos, Datas e Categorias...")
-        # O run_data_cleaning vai ler o CSV da pasta Raw, limpar e salvar
-        df_limpo = run_data_cleaning("obt_turnover_bruta.csv")
-        logger.info("✅ FASE 2 CONCLUÍDA.")
-        logger.info("-" * 30)
+        logger.info("[FASE 2 e 3] Iniciando limpeza e engenharia de features...")
 
-        # ---------------------------------------------------------
-        # FASE 3: A FORJA (Engenharia de Features)
-        # ---------------------------------------------------------
-        logger.info("▶️ FASE 3: Forjando Variáveis Matemáticas (Idade, Tempo de Casa)...")
-        # O run_feature_engineering recebe o df_limpo direto da memória RAM
-        df_features = run_feature_engineering(df_limpo)
+        processador = DataProcessor()
+        X_train, X_test, y_train, y_test = processador.run_full_pipeline(df_bruto)
 
-        # 🛡️ BLINDAGEM S-RANK: Garantindo caminhos no Linux do Render
-        pasta_processed = os.path.join(BASE_DIR, "Data", "Processed")
-        os.makedirs(pasta_processed, exist_ok=True)  # Cria a pasta se o Render tiver apagado
-        caminho_processed = os.path.join(pasta_processed, "obt_turnover_preparada.csv")
-
-        # Salvando o Checkpoint Final antes da matemática pura
-        df_features.to_csv(caminho_processed, index=False)
-        logger.info(f"Checkpoint S-Rank salvo em: {caminho_processed}")
-        logger.info("✅ FASE 3 CONCLUÍDA.")
-        logger.info("-" * 30)
+        logger.info("[FASE 2 e 3] Processamento concluído. Matrizes matemáticas preparadas.")
 
         # ---------------------------------------------------------
-        # FASE 4: O COMBATE (Machine Learning)
+        # FASE 4: Treinamento dos Modelos
         # ---------------------------------------------------------
-        logger.info("▶️ FASE 4: Treinamento da IA (Regressão Logística + SMOTE)...")
-        # Passa a bola final pro treinamento que vai fatiar, aplicar o SMOTE e salvar no disco
-        run_training(df_features)
+        logger.info("[FASE 4] Iniciando calibração dos modelos (Logistic Regression e Cox)...")
 
-        logger.info("=" * 60)
-        logger.info("🚀 ESTEIRA FINALIZADA COM SUCESSO! O ALGORITMO ESTÁ VIVO E TREINADO.")
+        motor_ai = SurvivalEngine(penalizer=0.1)
 
+        motor_ai.train_model(X_train, y_train)
+        motor_ai.evaluate_model(X_test, y_test)
+        motor_ai.save_models()
+
+        logger.info("=== PIPELINE FINALIZADO COM SUCESSO ===")
 
     except Exception as e:
-        logger.error(f"❌ FALHA CATASTRÓFICA NA ESTEIRA: {e}")
-        logger.error("O efeito dominó foi interrompido para evitar corrupção de dados.")
+        logger.error(f"[ERRO CRÍTICO] Falha na execução da esteira: {e}")
+        logger.error("Processo interrompido para evitar inconsistência de dados.")
 
 
 if __name__ == "__main__":
