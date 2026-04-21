@@ -44,19 +44,19 @@ Bloco 3: Responsável pela divisão entre treino e teste do dataset
 
     def apply_scaler(self, X_train: pd.DataFrame, X_test: pd.DataFrame) -> tuple:
         """
-        Aplica o StandardScaler garantindo a preservação integral das colunas.
+        Aplica o StandardScaler apenas nas variáveis contínuas que precisam.
+        BLINDAGEM S-RANK: O 'meses_de_casa' (Relógio) JAMAIS entra no Scaler.
         """
         logger.info(f"[ML PREPROC] Colunas recebidas para escalonamento: {list(X_train.columns)}")
 
-        # 1. Definir o que deve ser escalonado (apenas colunas contínuas existentes)
-        num_features = [col for col in ['meses_de_casa', 'salario_contratual', 'idade', 'qtd_dependentes'] if
+        # 1. TIREI o 'meses_de_casa' daqui. Ele não pode ser escalonado!
+        num_features = [col for col in ['salario_contratual', 'idade', 'qtd_dependentes'] if
                         col in X_train.columns]
 
-        # 2. Definir o que deve passar direto (Dummies, Flags e o Relógio se ele não for escalonado)
-        # Se você quer o meses_de_casa SEM escala para o Cox, tire ele da lista num_features
+        # 2. O 'meses_de_casa' vai cair aqui e passar ileso (junto com as flags 0 e 1)
         remainder_cols = [col for col in X_train.columns if col not in num_features]
 
-        # 3. Configurar o Transformer com Passthrough obrigatório
+        # 3. Configurar o Transformer
         self.preprocessor = ColumnTransformer(
             transformers=[
                 ('scaler', StandardScaler(), num_features)
@@ -64,17 +64,16 @@ Bloco 3: Responsável pela divisão entre treino e teste do dataset
             remainder='passthrough'
         )
 
-        # 4. Executar a transformação (Retorna NumPy Array)
+        # 4. Executar a transformação
         X_train_scaled = self.preprocessor.fit_transform(X_train)
         X_test_scaled = self.preprocessor.transform(X_test)
 
-        # 5. RECONSTRUÇÃO CRÍTICA: O ColumnTransformer empilha [num_features + remainder_cols]
+        # 5. RECONSTRUÇÃO CRÍTICA
         colunas_finais = num_features + remainder_cols
 
         X_train_final = pd.DataFrame(X_train_scaled, columns=colunas_finais, index=X_train.index)
         X_test_final = pd.DataFrame(X_test_scaled, columns=colunas_finais, index=X_test.index)
 
-        # 6. Forçar casting para garantir que o Cox não rejeite os dados
         X_train_final = X_train_final.astype(float)
         X_test_final = X_test_final.astype(float)
 

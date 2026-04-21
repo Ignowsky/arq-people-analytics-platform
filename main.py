@@ -58,10 +58,20 @@ def rodar_esteira_mlops():
 
         motor_ai = SurvivalEngine(penalizer=0.1)
 
-        motor_ai.train_model(X_train, y_train)
-        motor_ai.evaluate_model(X_test, y_test)
-        motor_ai.save_models()
+        motor_ai.train_model(
+            X_train=X_train,
+            y_train=y_train,
+            duration_col = "meses_de_casa",
+            event_col = "target_pediu_demissao"
+        )
 
+        motor_ai.evaluate_model(
+            X_test=X_test,
+            y_test=y_test,
+            duration_col = "meses_de_casa"
+        )
+
+        motor_ai.save_models()
         logger.info("=== PIPELINE FINALIZADO COM SUCESSO ===")
 
     except Exception as e:

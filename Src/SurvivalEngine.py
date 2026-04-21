@@ -52,29 +52,22 @@ class SurvivalEngine:
     def train_model(self, X_train: pd.DataFrame, y_train: pd.Series, duration_col: str = 'meses_de_casa',
                     event_col: str = 'target_pediu_demissao'):
         """
-        Executa o treinamento dos modelos.
-        Garante que o Cox receba a coluna de tempo e a Logística não.
+        Executa o ajuste (fit) dos modelos matemáticos em paralelo.
+        Aplica o isolamento da variável de tempo para a Regressão Logística.
         """
-        # --- 1. TREINO DA REGRESSÃO LOGÍSTICA ---
-        logger.info("[SURVIVAL ENGINE]: Iniciando a calibração da Regressão Logística...")
+        # --- 1. TREINAMENTO DA REGRESSÃO LOGÍSTICA ---
+        logger.info("[SurvivalEngine] Iniciando a calibração da Regressão Logística...")
 
-        # Criamos uma cópia específica para a LR sem a coluna de tempo
+        # Remoção da variável temporal exclusiva para o classificador
         X_lr = X_train.drop(columns=[duration_col]).copy() if duration_col in X_train.columns else X_train.copy()
         self.lr_pipeline.fit(X_lr, y_train)
 
-        # --- 2. TREINO DO MODELO DE COX ---
-        logger.info("[SURVIVAL ENGINE]: Iniciando o FIT do Cox Proportional Hazards...")
+        # --- 2. TREINAMENTO DO MODELO COX PROPORTIONAL HAZARDS ---
+        logger.info("[SurvivalEngine] Inicializando o ajuste do modelo Cox Proportional Hazards...")
 
-        # O Cox precisa do X e do Y juntos.
-        # Garantimos que estamos usando o X_train ORIGINAL que contém o 'meses_de_casa'
+        # Unificação do conjunto de dados (A biblioteca lifelines exige features e target no mesmo DataFrame)
         df_cox_train = X_train.copy()
         df_cox_train[event_col] = y_train.values
-
-        # Verificação de segurança (Sanity Check)
-        if duration_col not in df_cox_train.columns:
-            logger.error(
-                f"[ERRO CRÍTICO]: A coluna '{duration_col}' não chegou ao SurvivalEngine. Verifique o DataProcessor.")
-            raise KeyError(f"Coluna {duration_col} ausente na matriz de treino.")
 
         self.cph.fit(
             df_cox_train,
@@ -82,7 +75,7 @@ class SurvivalEngine:
             event_col=event_col
         )
 
-        logger.info("[SURVIVAL ENGINE]: Treinamento dos modelos finalizado com sucesso.")
+        logger.info("[SurvivalEngine] Treinamento dos modelos concluído com sucesso.")
         return self.lr_pipeline, self.cph
 
     def evaluate_model(self, X_test: pd.DataFrame, y_test: pd.Series, duration_col: str = 'meses_de_casa'):
@@ -106,8 +99,17 @@ class SurvivalEngine:
 
         # 2. Avaliação do Modelo de Sobrevivência
         logger.info("[SURVIVAL ENGINE]: Avaliando a estabilidade do Modelo Cox...")
-        c_index = self.cph.concordance_index_
-        logger.info(f"Concordance Index (Cox): {np.round(c_index, 2)}")
+
+        df_cox_test = X_test.copy()
+        df_cox_test[y_test.name] = y_test.values
+
+        try:
+            # Calculando o C-index com dados inéditos
+            c_index_test = self.cph.score(df_cox_test, scoring_method = "concordance_index")
+            logger.info(f"Concordance Index (Cox - Teste Frio): {np.round(c_index_test, 2)}")
+        except Exception as e:
+            logger.warning(f"[WARNING] Ao calcular o C-Index no teste (pode ocorrer holdout se for muito pequeno): {e}")
+
 
         print('\n' + '=' * 60)
         print('--- RAIO-X DAS VARIÁVEIS (COX MODEL SUMMARY) ---')

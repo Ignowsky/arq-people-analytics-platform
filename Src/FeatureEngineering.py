@@ -1,7 +1,7 @@
 # Src/FeatureEngineering.py
 import pandas as pd
 import numpy as np
-
+import datetime as date
 # Importando o logger de forma blindada
 try:
     from .logger import setup_logger
@@ -34,6 +34,29 @@ class FeatureEngineeringMixin:
         return df_processed
 
 
+    def creating_dates(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Função com a inteção de criar um novo dataset com a data corte
+
+        :param df: dataframe
+        :return: dataframe new column
+        """
+        df_processed = df.copy()
+
+        logger.info("[INICIANDO] Criação da coluna de Cutoff")
+        df_processed['data_corte'] = df_processed['data_demissao'].fillna(pd.Timestamp.today())
+        logger.info("[FINALIZANDO] Coluna de Cutoff criada com sucesso")
+
+        logger.info("[INICIANDO] Criação da coluna de idade")
+        df_processed['idade'] = ((df_processed['data_corte'] - df_processed['data_nascimento']).dt.days // 365).astype(int)
+        logger.info("[FINALIZANDO] Coluna de idade criada com sucesso")
+
+        logger.info("[INICIANDO] Criação da coluna de tempo de casa")
+        df_processed['meses_de_casa'] = ((df_processed['data_corte'] - df_processed['data_admissao']).dt.days / 30.44).astype(float).round(2)
+        logger.info("[FINALIZANDO] Coluna de tempo de casa criada com sucesso")
+
+        return df_processed
+
     def discretize_variables(self, df: pd.DataFrame) -> pd.DataFrame:
         logger.info("[FEATURE ENGINEERING]: Discretizando variáveis contínuas (Idade e Salario)...")
         df_processed = df.copy()
@@ -65,7 +88,11 @@ class FeatureEngineeringMixin:
         logger.info(f"[INICIANDO] PIPELINE DE FEATURE ENGINEERING")
         df_processed = df.copy()
 
+        # 1° Aplica as regras de negócios
         df_processed = self.apply_business_rules(df_processed)
+        # 2° Cria as colunas de tempo e idade
+        df_processed = self.creating_dates(df_processed)
+        # 3° Discretiza oque foi criado acima
         df_processed = self.discretize_variables(df_processed)
 
         logger.info(f"[CONCLUÍDO] PIPELINE DE FEATURE ENGINEERING")
