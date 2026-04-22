@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import joblib
 from pathlib import Path
-from sklearn.metrics import classification_report  # IMPORT NOVO
+from sklearn.metrics import classification_report
 
 # Importando o logger padrão do projeto
 try:
@@ -14,6 +14,24 @@ except ImportError:
 logger = setup_logger("INFERENCIA_RH")
 
 
+def recriar_features_faltantes(df_alvo):
+    """
+    Reconstrói as features matemáticas a partir do dado limpo.
+    Assim não perdemos os nomes dos departamentos e cargos para o relatório final.
+    """
+    df_feat = df_alvo.copy()
+
+    df_feat['is_perfil_Nao_Mapeado'] = np.where(df_feat['perfil_comportamental'].str.contains('Não Mapeado', na=False),
+                                                1, 0)
+    df_feat['is_dep_RELACIONAMENTO'] = np.where(df_feat['departamento_nome_api'] == 'RELACIONAMENTO', 1, 0)
+    df_feat['is_com_dependentes'] = np.where(df_feat['qtd_dependentes'] > 0, 1, 0)
+
+    df_feat['faixa_salarial'] = pd.qcut(df_feat['salario_contratual'], q=3, labels=['Baixo', 'Médio', 'Alto'])
+    df_feat['faixa_idade'] = pd.cut(df_feat['idade'], bins=[0, 25, 35, 100], labels=['Ate_25', '26_a_35', 'Acima_35'])
+
+    return df_feat
+
+
 def auditoria_cenario_real(df, modelo_lr, modelo_cox):
     """
     Roda as métricas na base geral (histórica) para provar a acurácia
@@ -21,12 +39,8 @@ def auditoria_cenario_real(df, modelo_lr, modelo_cox):
     """
     logger.info("🧪 INICIANDO AUDITORIA DE PRECISÃO (CENÁRIO REAL) 🧪")
 
-    df_eval = df.copy()
-
-    # 1. Recria as features
-    df_eval['is_perfil_Nao_Mapeado'] = np.where(df_eval['perfil_comportamental'].str.contains('Não Mapeado', na=False),
-                                                1, 0)
-    df_eval['is_dep_RELACIONAMENTO'] = np.where(df_eval['departamento_nome_api'] == 'RELACIONAMENTO', 1, 0)
+    # 1. Aplica a engenharia de features em tempo real
+    df_eval = recriar_features_faltantes(df)
 
     colunas_base = ['meses_de_casa', 'salario_contratual', 'idade', 'qtd_dependentes', 'faixa_salarial', 'faixa_idade',
                     'is_com_dependentes', 'is_perfil_Nao_Mapeado', 'is_dep_RELACIONAMENTO']
@@ -57,7 +71,6 @@ def auditoria_cenario_real(df, modelo_lr, modelo_cox):
     # ---------------------------------------------------------
     X_cox_eval = X_eval.reindex(columns=modelo_cox.params_.index, fill_value=0)
 
-    # Pro score do Cox funcionar, a duração e o evento tem que estar na matriz
     df_cox_eval = X_cox_eval.copy()
     df_cox_eval['meses_de_casa'] = df_eval['meses_de_casa']
     df_cox_eval['target_pediu_demissao'] = df_eval['target_pediu_demissao']
@@ -76,7 +89,8 @@ def rodar_teste_real():
     logger.info("🔮 INICIANDO O SCANNER S-RANK: ENSEMBLE (LOGÍSTICA + COX) 🔮")
 
     caminho_atual = Path(__file__).resolve().parent
-    caminho_dados = caminho_atual / "Data" / "Processed" / "obt_turnover_preparada.csv"
+    # 🚨 PONTO CHAVE: Apontando para o LIMPO obrigatoriamente
+    caminho_dados = caminho_atual / "Data" / "Processed" / "obt_turnover_limpo.csv"
     caminho_modelo_cox = caminho_atual / "Models" / "cox_turnover_model.pkl"
     caminho_modelo_lr = caminho_atual / "Models" / "lr_turnover_model.pkl"
 
@@ -87,7 +101,7 @@ def rodar_teste_real():
     logger.info("Puxando a base de dados preparada...")
     df = pd.read_csv(caminho_dados)
 
-    # 🚀 CHAMADA DA AUDITORIA: Avaliamos o modelo antes de filtrar os ativos!
+    # 🚀 CHAMADA DA AUDITORIA
     auditoria_cenario_real(df, modelo_lr, modelo_cox)
 
     # 4. O Filtro Supremo: Apenas quem está ATIVO na empresa hoje (0)
@@ -95,11 +109,9 @@ def rodar_teste_real():
     logger.info(f"Rastreando o risco de {len(df_ativos)} colaboradores ativos...")
 
     # ------------------------------------------------------------------
-    # 5. PREPARAÇÃO DA MATRIZ MATEMÁTICA
+    # 5. PREPARAÇÃO DA MATRIZ MATEMÁTICA (Usando a função ninja)
     # ------------------------------------------------------------------
-    df_ativos['is_perfil_Nao_Mapeado'] = np.where(
-        df_ativos['perfil_comportamental'].str.contains('Não Mapeado', na=False), 1, 0)
-    df_ativos['is_dep_RELACIONAMENTO'] = np.where(df_ativos['departamento_nome_api'] == 'RELACIONAMENTO', 1, 0)
+    df_ativos = recriar_features_faltantes(df_ativos)
 
     colunas_base = ['meses_de_casa', 'salario_contratual', 'idade', 'qtd_dependentes', 'faixa_salarial', 'faixa_idade',
                     'is_com_dependentes', 'is_perfil_Nao_Mapeado', 'is_dep_RELACIONAMENTO']
@@ -139,7 +151,6 @@ def rodar_teste_real():
     horizontes = [2, 3, 4, 6, 8, 10, 12]
     resultados_prob = {h: [] for h in horizontes}
 
-    # 🛡️ JUTSU SUPREMO: Descobrimos todos os tempos exatos (atuais e futuros) que vamos precisar
     tempos_necessarios = set()
     for idx in df_ativos.index:
         ta = df_ativos.loc[idx, 'meses_de_casa']
@@ -201,7 +212,8 @@ def rodar_teste_real():
     print("=" * 105)
     print(df_relatorio.to_string(index=False))
 
-    caminho_excel = Path("C:\\Users\\JoãoPedrodosSantosSa\\ARQDIGITAL LTDA\\RH DRIVE - Documentos\\9. ML & ANALYTICS\\Target List\\Target_List_ME.xlsx")
+    caminho_excel = Path(
+        "C:\\Users\\JoãoPedrodosSantosSa\\ARQDIGITAL LTDA\\RH DRIVE - Documentos\\9. ML & ANALYTICS\\Target List\\Target_List_ME.xlsx")
     os.makedirs(caminho_excel.parent, exist_ok=True)
 
     with pd.ExcelWriter(caminho_excel, engine='openpyxl') as writer:
