@@ -135,7 +135,7 @@ def rodar_teste_real():
     df_lr_relatorio = pd.DataFrame({
         'ID_Colaborador': df_ativos['colaborador_sk'],
         'Depto': df_ativos['departamento_nome_api'],
-        'Cargo': df_ativos.get('cargo', 'Não Informado'),
+        'Cargo': df_ativos.get('cargo_nome_api', 'Não Informado'),
         'Meses_Casa': df_ativos['meses_de_casa'],
         'Risco_Bruto_Fuga_%': np.round(prob_fuga_lr, 2)
     })
